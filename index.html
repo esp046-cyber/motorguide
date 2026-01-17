@@ -1,0 +1,3333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Motors Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 1%;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            padding: 3% 1%;
+            border-radius: 8px;
+            margin-bottom: 1%;
+            border-left: 4px solid #e94560;
+        }
+        
+        h1 {
+            font-size: 1.4em;
+            color: #e94560;
+            margin-bottom: 0.3em;
+        }
+        
+        h2 {
+            font-size: 1.1em;
+            color: #f39c12;
+            margin: 1% 0;
+            padding: 2% 1%;
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 3px solid #f39c12;
+            border-radius: 4px;
+        }
+        
+        h3 {
+            font-size: 1em;
+            color: #3498db;
+            margin: 1% 0 0.5% 0;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 1%;
+            margin-bottom: 1%;
+            overflow-x: auto;
+            padding: 1% 0;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 2.5% 1%;
+            background: #16213e;
+            border: 2px solid #0f3460;
+            color: #e0e0e0;
+            font-size: 0.85em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            background: #e94560;
+            border-color: #e94560;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .guide-section {
+            background: #16213e;
+            padding: 2% 1%;
+            margin-bottom: 1%;
+            border-radius: 6px;
+            border: 1px solid #0f3460;
+        }
+        
+        .step {
+            background: #0f3460;
+            padding: 2% 1%;
+            margin: 1% 0;
+            border-radius: 4px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        
+        .warning {
+            background: rgba(231, 76, 60, 0.15);
+            border-left: 3px solid #e74c3c;
+            padding: 2% 1%;
+            margin: 1% 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .tip {
+            background: rgba(46, 204, 113, 0.15);
+            border-left: 3px solid #2ecc71;
+            padding: 2% 1%;
+            margin: 1% 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1%;
+            margin: 1% 0;
+        }
+        
+        .spec-card {
+            background: #0f3460;
+            padding: 2% 1%;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #1a1a2e;
+        }
+        
+        .spec-label {
+            font-size: 0.8em;
+            color: #95a5a6;
+            margin-bottom: 4px;
+        }
+        
+        .spec-value {
+            font-size: 1em;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        ul {
+            margin: 1% 0 1% 3%;
+        }
+        
+        li {
+            margin: 0.5% 0;
+            font-size: 0.95em;
+        }
+        
+        .motor-type {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            padding: 2% 1%;
+            margin: 1% 0;
+            border-radius: 6px;
+            border: 2px solid #e94560;
+        }
+        
+        .skill-level {
+            display: inline-block;
+            padding: 1% 2%;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 1% 0;
+        }
+        
+        .beginner { background: #2ecc71; color: white; }
+        .intermediate { background: #f39c12; color: white; }
+        .advanced { background: #e74c3c; color: white; }
+    </style>
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙️ 2026 Motors Complete Guide</h1>
+            <p style="font-size: 0.9em; opacity: 0.9;">Professional maintenance & repair handbook</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('instructions')">Instructions</button>
+            <button class="tab-btn" onclick="showTab('installation')">Installation</button>
+            <button class="tab-btn" onclick="showTab('wiring')">Wiring</button>
+            <button class="tab-btn" onclick="showTab('vfd')">VFD/Drives</button>
+            <button class="tab-btn" onclick="showTab('maintenance')">Maintenance</button>
+            <button class="tab-btn" onclick="showTab('safety')">Safety/LOTO</button>
+            <button class="tab-btn" onclick="showTab('diagnostics')">Diagnostics</button>
+            <button class="tab-btn" onclick="showTab('energy')">Energy/Efficiency</button>
+            <button class="tab-btn" onclick="showTab('repair')">Repair</button>
+            <button class="tab-btn" onclick="showTab('skills')">Skills</button>
+            <button class="tab-btn" onclick="showTab('size')">Size Guide</button>
+            <button class="tab-btn" onclick="showTab('types')">Motor Types</button>
+        </div>
+        
+        <!-- Instructions Tab -->
+        <div id="instructions" class="tab-content active">
+            <div class="guide-section">
+                <h2>🔧 Basic Operation Instructions</h2>
+                
+                <h3>Pre-Operation Checklist</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Visual Inspection:</strong> Check for loose connections, damaged wiring, or unusual wear on motor housing and mounting bolts.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Lubrication Check:</strong> Verify bearing lubrication levels. Most 2026 motors use sealed bearings but check maintenance schedule.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Power Supply:</strong> Confirm voltage matches motor rating (±10% tolerance). Check phase balance for 3-phase motors.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Ventilation:</strong> Ensure cooling vents are clear. Minimum 6 inches clearance on all sides for proper airflow.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Warning:</strong> Never operate motor above rated voltage or frequency. Overheating can cause insulation failure and motor burnout.
+                </div>
+                
+                <h3>Startup Procedure</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    Disconnect all mechanical loads during initial startup test
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    Apply power gradually using soft-start controller if available
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    Monitor current draw - should stabilize within 3-5 seconds
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    Listen for unusual vibrations or noise during operation
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    Check operating temperature after 15 minutes (should not exceed 80°C)
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📊 Performance Monitoring</h2>
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Log motor performance weekly. Temperature rises >15% or current draws >10% indicate developing issues.
+                </div>
+                <ul>
+                    <li>Record vibration levels using accelerometer (baseline: <2.5mm/s RMS)</li>
+                    <li>Monitor bearing temperature (should be <70°C at full load)</li>
+                    <li>Check current imbalance on 3-phase motors (<5% variation)</li>
+                    <li>Measure insulation resistance monthly (minimum 1MΩ per kV)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Installation Tab -->
+        <div id="installation" class="tab-content">
+            <div class="guide-section">
+                <h2>🏗️ Motor Installation Guide</h2>
+                
+                <h3>Pre-Installation Planning</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Site Survey:</strong> Verify foundation can support motor weight plus 2x safety factor. Check for vibration isolation requirements.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Environmental Check:</strong> Confirm ambient temperature (-20°C to +40°C standard), humidity (<95% non-condensing), altitude (<3300ft).
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Power Verification:</strong> Match available voltage/phase to motor nameplate. Check electrical service capacity for starting current (6-8x FLA).
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Access Planning:</strong> Ensure minimum clearances - 36" front (NEC), 6" sides for cooling, overhead space for lifting equipment.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Safety First:</strong> All installation work requires LOTO procedures. Verify zero energy state before beginning work.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚓ Foundation & Mounting</h2>
+                
+                <h3>Foundation Preparation</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Concrete Foundation:</strong> Minimum 6" thick reinforced concrete. Cure for 28 days before mounting heavy motors (>50HP).
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Anchor Bolt Installation:</strong> Use 3/4" minimum diameter for motors >10HP. Embed depth = 12x bolt diameter. Torque to manufacturer specs.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Leveling:</strong> Use precision level - maximum 0.002" per foot deviation. Check both axes and diagonals. Shim as needed with steel plates.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Grouting:</strong> Use non-shrink epoxy grout. Fill to 100% under baseplate. Allow 24-48hr cure before tensioning bolts.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Install vibration isolation pads for motors >5HP in noise-sensitive areas. Use neoprene or spring isolators rated for motor weight.
+                </div>
+                
+                <h3>Mounting Hardware Torque Specifications</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">1/4" Bolt</div>
+                        <div class="spec-value">8 lb-ft</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">3/8" Bolt</div>
+                        <div class="spec-value">20 lb-ft</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">1/2" Bolt</div>
+                        <div class="spec-value">45 lb-ft</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">5/8" Bolt</div>
+                        <div class="spec-value">90 lb-ft</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">3/4" Bolt</div>
+                        <div class="spec-value">150 lb-ft</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">1" Bolt</div>
+                        <div class="spec-value">300 lb-ft</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔌 Electrical Installation</h2>
+                
+                <h3>Cable Sizing Chart (Copper, 75°C Insulation)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">1-5 HP (240V)</div>
+                        <div class="spec-value">12 AWG</div>
+                        <div style="font-size:0.75em; margin-top:4px;">20A max</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">7.5-10 HP</div>
+                        <div class="spec-value">10 AWG</div>
+                        <div style="font-size:0.75em; margin-top:4px;">30A max</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">15-20 HP</div>
+                        <div class="spec-value">6 AWG</div>
+                        <div style="font-size:0.75em; margin-top:4px;">60A max</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">25-40 HP</div>
+                        <div class="spec-value">3 AWG</div>
+                        <div style="font-size:0.75em; margin-top:4px;">100A max</div>
+                    </div>
+                </div>
+                
+                <h3>Grounding & Bonding</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Equipment Ground:</strong> Size per NEC Table 250.122. Minimum #12 AWG for circuits up to 20A, #10 AWG for 30A circuits.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Ground Connection:</strong> Connect to motor frame ground lug using star washer. Torque to 20-30 lb-ft. Verify <1Ω resistance to ground.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Bonding Jumpers:</strong> Install across flexible conduit connections. Use same size as equipment ground conductor.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Ground Rod:</strong> For isolated systems, drive 8ft copper-clad rod. Bond to motor frame and neutral (if applicable). Test <25Ω to earth.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Critical:</strong> Never use motor mounting bolts as ground path. Always run separate equipment ground conductor.
+                </div>
+                
+                <h3>Terminal Box Wiring</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Access Terminal Box:</strong> Remove cover plate. Verify internal connections match voltage configuration needed (check diagram inside).
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Cable Entry:</strong> Use appropriately sized conduit fitting. Maintain IP rating of enclosure. Apply cable pulling compound to prevent insulation damage.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Wire Connections:</strong> Strip 1/2" insulation. Use compression lugs sized for wire gauge. Torque terminals per nameplate (typically 25-50 lb-in for #10-6 AWG).
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Phase Rotation:</strong> For 3-phase, verify L1-L2-L3 sequence matches motor rotation requirement. Use phase rotation meter before coupling load.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Cable Support:</strong> Secure cables with strain relief. Leave 10% slack for thermal expansion. Dress wires neatly to avoid contact with terminals.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Dual Voltage Motors:</strong> For 230/460V motors, series connection = high voltage, parallel = low voltage. Always verify jumper configuration before power-up.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🎯 Shaft Alignment</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>Alignment Methods Comparison</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Straight Edge</div>
+                        <div class="spec-value">±0.030"</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Quick check only</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Dial Indicator</div>
+                        <div class="spec-value">±0.002"</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Standard precision</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Laser System</div>
+                        <div class="spec-value">±0.0005"</div>
+                        <div style="font-size:0.75em; margin-top:4px;">High precision</div>
+                    </div>
+                </div>
+                
+                <h3>Dial Indicator Method (Rim & Face)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Setup:</strong> Mount dial indicators on motor shaft. One reads coupling face (axial), one reads rim (radial). Zero both at 12 o'clock.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Measurement:</strong> Rotate both shafts together through 360°. Record readings at 0°, 90°, 180°, 270°. Look for repeatable pattern.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Calculate Offset:</strong> Radial misalignment = (top reading - bottom reading) ÷ 2. Target: <0.002" for speeds >1800 RPM.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Calculate Angularity:</strong> Face readings show angular misalignment. Target: <0.001" per inch of coupling diameter.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Adjust:</strong> Add/remove shims under motor feet. Move horizontally using jack bolts. Recheck after each adjustment. Iterate until within spec.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Soft Foot Warning:</strong> Check all four motor feet contact base before alignment. Max gap <0.002". Causes 80% of alignment problems.
+                </div>
+                
+                <h3>Final Installation Checks</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Rotation Test:</strong> Bump motor momentarily (jog). Verify direction matches load requirement. Swap two phases if reversed.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>No-Load Run:</strong> Run uncoupled for 30 minutes. Check vibration (<0.2 in/s), temperature (<60°C), unusual noise.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Couple to Load:</strong> Install coupling guards. Run at 25%, 50%, 75%, 100% load for 15 min each. Monitor current and temperature.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Documentation:</strong> Record baseline vibration, temperature, current draw. Create maintenance schedule. Label motor with commissioning date.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Thermal Growth:</strong> Large motors expand when hot. Pre-offset motor 0.001" per foot of shaft height for thermal rise. Realign after 24hr operation.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📋 Installation Checklist</h2>
+                <div class="motor-type">
+                    <strong>Before Power-On (Critical):</strong>
+                    <ul>
+                        <li>☐ Mounting bolts torqued to specification</li>
+                        <li>☐ Shaft alignment within tolerance (<0.002")</li>
+                        <li>☐ All electrical connections tight and insulated</li>
+                        <li>☐ Equipment ground verified <1Ω to earth</li>
+                        <li>☐ Rotation direction confirmed (jog test)</li>
+                        <li>☐ Coupling guards installed and secure</li>
+                        <li>☐ Nameplate voltage matches supply voltage</li>
+                        <li>☐ Overload protection properly sized (115-125% FLA)</li>
+                        <li>☐ Ventilation openings clear and unobstructed</li>
+                        <li>☐ Megger test passed (>2MΩ minimum)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Commissioning Phase:</strong>
+                    <ul>
+                        <li>☐ No-load current within 30-50% of FLA</li>
+                        <li>☐ Phase current balance <5% variation</li>
+                        <li>☐ Vibration <2.5 mm/s RMS at rated speed</li>
+                        <li>☐ Bearing temperature <70°C after 1 hour</li>
+                        <li>☐ No unusual noise or rattling</li>
+                        <li>☐ Voltage drop <3% under full load</li>
+                        <li>☐ Documentation completed and filed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Electrical Connections & Wiring Tab -->
+        <div id="wiring" class="tab-content">
+            <div class="guide-section">
+                <h2>⚡ Electrical Connections & Wiring</h2>
+                
+                <h3>Wiring Diagrams - Common Configurations</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="motor-type">
+                    <strong>Single Phase Motors (115V/230V)</strong>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">115V Operation</div>
+                            <div class="spec-value">Parallel</div>
+                            <div style="font-size:0.75em; margin-top:4px;">Connect T1-T5, T2-T4</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">230V Operation</div>
+                            <div class="spec-value">Series</div>
+                            <div style="font-size:0.75em; margin-top:4px;">Connect T1-T3, T2-T4</div>
+                        </div>
+                    </div>
+                    <div class="tip">
+                        💡 <strong>Capacitor Wiring:</strong> Run capacitor connects to T1 and T4. Start capacitor (if equipped) has centrifugal switch in series. Never reverse polarity on capacitors.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Three Phase Motors - WYE (Star) Configuration</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Low Voltage (230V):</strong> Connect together: T4-T5-T6 (internal star point). Power to T1, T2, T3.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>High Voltage (460V):</strong> Same as low voltage - star connection doesn't change with voltage on most motors.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Verification:</strong> Measure resistance T1-T2, T2-T3, T3-T1. All three should be equal ±5%.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Three Phase Motors - DELTA Configuration</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Low Voltage (230V):</strong> Connect: T1-T6-T7, T2-T4-T8, T3-T5-T9. Creates parallel delta. Power to T1, T2, T3.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>High Voltage (460V):</strong> Connect: T1-T7, T2-T8, T3-T9, then T4-T5-T6 together. Creates series delta.
+                    </div>
+                    <div class="warning">
+                        ⚠️ <strong>Delta Warning:</strong> Wrong connections create unbalanced currents and instant motor damage. Always verify with wiring diagram inside terminal box.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Dual Voltage 9-Lead Motors (Most Common)</strong>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">230V WYE</div>
+                            <div class="spec-value">Parallel</div>
+                            <div style="font-size:0.75em; margin-top:4px;">T1-T7, T2-T8, T3-T9<br>Join: T4-T5-T6</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">460V WYE</div>
+                            <div class="spec-value">Series</div>
+                            <div style="font-size:0.75em; margin-top:4px;">T4-T7, T5-T8, T6-T9<br>Power: T1, T2, T3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔌 Wire Gauge Selection Charts</h2>
+                
+                <h3>NEC Ampacity Tables (Copper, 75°C, 3 Conductors in Conduit)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">14 AWG</div>
+                        <div class="spec-value">20A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 2.5 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">12 AWG</div>
+                        <div class="spec-value">25A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 3 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">10 AWG</div>
+                        <div class="spec-value">35A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 5 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">8 AWG</div>
+                        <div class="spec-value">50A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 7.5 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">6 AWG</div>
+                        <div class="spec-value">65A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 10 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">4 AWG</div>
+                        <div class="spec-value">85A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 15 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">3 AWG</div>
+                        <div class="spec-value">100A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 20 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">2 AWG</div>
+                        <div class="spec-value">115A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 25 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">1 AWG</div>
+                        <div class="spec-value">130A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 30 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">1/0 AWG</div>
+                        <div class="spec-value">150A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 40 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">2/0 AWG</div>
+                        <div class="spec-value">175A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 50 HP @ 240V</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">3/0 AWG</div>
+                        <div class="spec-value">200A</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Up to 60 HP @ 240V</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Sizing Rule:</strong> Wire must carry 125% of motor Full Load Amperage (FLA). For continuous duty, add another 25%. Check nameplate for exact FLA.
+                </div>
+                
+                <h3>Voltage Drop Calculation</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Formula:</strong> VD = 2 × K × I × L ÷ CM<br>
+                    <span style="font-size:0.9em;">Where: K=12.9 (copper), I=current(A), L=one-way length(ft), CM=circular mils</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>NEC Limit:</strong> Maximum 3% voltage drop for branch circuits, 5% total for feeders + branch circuits combined.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Example:</strong> 10HP motor, 50A FLA, 200ft run, 8 AWG (16,510 CM):<br>
+                    VD = 2 × 12.9 × 50 × 200 ÷ 16,510 = 15.6V (6.5% @ 240V) - TOO HIGH, need 4 AWG
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>High Voltage Drop Symptoms:</strong> Motor won't start, low torque, overheating, premature contactor failure. Always calculate before installation.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔒 Overcurrent Protection & Disconnects</h2>
+                
+                <h3>Overload Relay Sizing</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Standard Motors:</strong> Set overload at 115-125% of motor nameplate FLA. Typical: 1.15 service factor motors = 125%, 1.0 SF = 115%.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>High Starting Current:</strong> For hard-to-start loads (compressors, pumps), may need Class 20 or Class 30 overloads (20-30 sec trip time).
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Ambient Compensation:</strong> Thermal overloads derate at high temps. Add 10% to setting if ambient >40°C.
+                </div>
+                
+                <h3>Circuit Breaker / Fuse Selection</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Inverse Time Breaker</div>
+                        <div class="spec-value">250% FLA</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Most common</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Instant Trip Breaker</div>
+                        <div class="spec-value">800% FLA</div>
+                        <div style="font-size:0.75em; margin-top:4px;">High inrush</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Dual Element Fuse</div>
+                        <div class="spec-value">175% FLA</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Best protection</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Non-Time Delay Fuse</div>
+                        <div class="spec-value">300% FLA</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Budget option</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>NEC Requirement:</strong> Short circuit protection must NOT exceed 250% FLA for inverse time breakers. Use next size up if calculation falls between standard sizes.
+                </div>
+                
+                <h3>Disconnect Switch Requirements</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Rating:</strong> Minimum 115% of motor FLA. Must be horsepower-rated for motor applications.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Location:</strong> Within sight of motor (max 50ft) OR lockable in OFF position if remote. Label required if not in sight.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Type Selection:</strong> NEMA 1 (indoor dry), NEMA 3R (outdoor), NEMA 4X (washdown/corrosive). Match motor enclosure type.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📐 Conduit & Junction Box Sizing</h2>
+                
+                <h3>Conduit Fill - Maximum Conductors</h3>
+                <div class="motor-type">
+                    <strong>40% Fill Rule (3+ conductors):</strong>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">1/2" EMT</div>
+                            <div class="spec-value">4× #12 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 3× #10</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">3/4" EMT</div>
+                            <div class="spec-value">7× #12 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 4× #10</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">1" EMT</div>
+                            <div class="spec-value">12× #12 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 8× #10</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">1-1/4" EMT</div>
+                            <div class="spec-value">8× #6 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 5× #4</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">1-1/2" EMT</div>
+                            <div class="spec-value">12× #6 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 7× #4</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">2" EMT</div>
+                            <div class="spec-value">8× #2 AWG</div>
+                            <div style="font-size:0.75em; margin-top:4px;">or 5× #1/0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Derating Factors:</strong> More than 3 current-carrying conductors require ampacity derating: 4-6 wires = 80%, 7-9 = 70%, 10-20 = 50%.
+                </div>
+                
+                <h3>Junction Box Sizing Formula</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Straight Pull:</strong> Box length = 8× largest conduit diameter. Example: 1" conduit needs minimum 8" box.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Angle Pull:</strong> Distance = 6× largest conduit + sizes of other conduits on same wall.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>U-Pull:</strong> Use angle pull formula. Ensure adequate bending radius for conductors (min 8× wire diameter).
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🛡️ Grounding & Ground Fault Protection</h2>
+                
+                <h3>Equipment Grounding Conductor Sizing (NEC 250.122)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">15-20A Circuit</div>
+                        <div class="spec-value">12 AWG</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">30A Circuit</div>
+                        <div class="spec-value">10 AWG</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">40-60A Circuit</div>
+                        <div class="spec-value">10 AWG</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">100A Circuit</div>
+                        <div class="spec-value">8 AWG</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">200A Circuit</div>
+                        <div class="spec-value">6 AWG</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">400A Circuit</div>
+                        <div class="spec-value">3 AWG</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Critical Safety:</strong> Equipment ground MUST be sized per circuit breaker/fuse rating, NOT motor FLA. Never use conduit as sole ground path.
+                </div>
+                
+                <h3>Ground Fault Protection Testing</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Ground Resistance Test:</strong> Use earth ground tester. Motor frame to earth ground rod should be <1Ω. If >25Ω, add additional ground rods.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Bonding Verification:</strong> Test continuity between motor frame and electrical panel ground bus. Should be <0.5Ω.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>GFCI Testing:</strong> For motors in wet locations, test GFCI trips at 5mA ±1mA. Monthly testing required by NEC.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ Wiring Installation Checklist</h2>
+                <div class="motor-type">
+                    <strong>Pre-Wiring Verification:</strong>
+                    <ul>
+                        <li>☐ Wiring diagram matches motor voltage configuration</li>
+                        <li>☐ Wire gauge calculated for motor FLA + voltage drop</li>
+                        <li>☐ Conduit sized per NEC fill tables (40% max)</li>
+                        <li>☐ Overload relay sized 115-125% of FLA</li>
+                        <li>☐ Circuit breaker sized per NEC (typically 250% FLA)</li>
+                        <li>☐ Disconnect switch rated ≥115% FLA and HP-rated</li>
+                        <li>☐ Ground wire sized per breaker rating (NEC 250.122)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Installation Quality Checks:</strong>
+                    <ul>
+                        <li>☐ All wire terminations torqued per spec (use torque screwdriver)</li>
+                        <li>☐ Phase sequence verified with rotation meter (3-phase)</li>
+                        <li>☐ Insulation resistance >2MΩ (megger test at 500V DC)</li>
+                        <li>☐ Ground continuity verified (<1Ω to earth)</li>
+                        <li>☐ No pinched or damaged insulation in pulls</li>
+                        <li>☐ Proper strain relief at all terminations</li>
+                        <li>☐ Cable identification labels installed</li>
+                        <li>☐ All covers, guards, and enclosures secured</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Documentation Best Practice:</strong> Take photos of terminal connections before closing junction boxes. Create one-line diagram showing all protective devices and wire sizes.
+                </div>
+            </div>
+        </div>
+        
+        <!-- VFD/Drive Integration Tab -->
+        <div id="vfd" class="tab-content">
+            <div class="guide-section">
+                <h2>🎛️ VFD/Drive Integration Guide</h2>
+                
+                <h3>VFD Selection & Sizing</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Base Rating:</strong> VFD must match or exceed motor nameplate FLA. Standard rule: VFD amps ≥ 110% of motor FLA for safety margin.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Duty Cycle:</strong> Heavy duty (HD) rating for constant torque loads. Normal duty (ND) for variable torque (fans, pumps). HD = 110% ND rating.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Voltage Matching:</strong> Input voltage must match supply (208V, 230V, 460V, 575V). Output auto-adjusts to motor rating.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Overload Capacity:</strong> Verify VFD can handle 150% for 60 sec (typical motor starting). Check manufacturer's overload curve.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Sizing Example:</strong> 10HP motor, 28A FLA → Select minimum 30A VFD. For high-inertia loads (flywheels, fans), upsize to 40A.
+                </div>
+                
+                <h3>VFD Type Selection</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">V/Hz Control</div>
+                        <div class="spec-value">$</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Fans, pumps<br>±5% speed accuracy</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Sensorless Vector</div>
+                        <div class="spec-value">$</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Conveyors<br>±0.5% accuracy</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Closed Loop Vector</div>
+                        <div class="spec-value">$$</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Servo replacement<br>±0.01% accuracy</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Flux Vector</div>
+                        <div class="spec-value">$$</div>
+                        <div style="font-size:0.75em; margin-top:4px;">High torque @ 0 RPM<br>Encoder required</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔌 VFD Installation & Wiring</h2>
+                
+                <h3>Input Power Wiring</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Disconnect Requirements:</strong> Install fused disconnect rated 125% of VFD input current. Must be lockable and within sight of VFD.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Input Wire Sizing:</strong> Use 125% of VFD rated input current. Example: 50A VFD → 62.5A → use 6 AWG copper (65A rated).
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Input Reactors:</strong> Required if input power >10× VFD rating. Reduces harmonic distortion (THD) from 35% to <5%. Install on L1, L2, L3 line side.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>AC Line Filters:</strong> EMI/RFI filters mandatory for CE compliance. Install close to VFD input. Prevents noise feedback to utility.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Grounding Critical:</strong> VFD chassis ground must be <1Ω to earth. Use separate ground conductor - NEVER rely on conduit alone. Poor ground = nuisance trips.
+                </div>
+                
+                <h3>Output Motor Wiring</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Cable Type:</strong> Use VFD-rated cable with symmetrical construction. Standard THHN works up to 50ft. Beyond 50ft, use shielded VFD cable.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Maximum Cable Length:</strong> Unshielded = 50ft max, Shielded = 300ft max, Beyond 300ft = install output reactor or dV/dt filter.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Shield Termination:</strong> Ground shield at VFD end only (360° bond to backplate). Leave motor end floating to prevent ground loops.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Separation from Control Wiring:</strong> Maintain 12" minimum between motor cables and control/signal wiring. Cross at 90° if necessary.
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Output Reactor Installation (When Required):</strong>
+                    <ul>
+                        <li>Motor cable length >150ft (unshielded) or >300ft (shielded)</li>
+                        <li>Multiple motors on single VFD</li>
+                        <li>Older motors not inverter-rated (pre-2000)</li>
+                        <li>Reduces motor voltage stress from 1600V/μs to <500V/μs</li>
+                        <li>Install between VFD output (U/T1, V/T2, W/T3) and motor cable</li>
+                    </ul>
+                </div>
+                
+                <h3>Control Wiring Best Practices</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Cable Selection:</strong> Use shielded twisted-pair for all analog signals (0-10V, 4-20mA). 18-22 AWG sufficient for control.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Shield Grounding:</strong> Ground shield at VFD terminal block only. Use 360° metal gland or crimp ring - no pigtails.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Digital Inputs:</strong> For start/stop, use 24V DC (sink/source per VFD manual). Install RC snubber across relay coils (0.1μF + 100Ω).
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Analog Inputs:</strong> 4-20mA more noise-immune than 0-10V for runs >50ft. Use loop-powered transmitters when possible. Calibrate at 4mA and 20mA.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Noise Troubleshooting:</strong> If analog signals drift, check shield continuity (<1Ω). Separate control conduit from power by 12". Add ferrite cores on signal cables near VFD.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚙️ VFD Programming & Parameters</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>Essential Startup Parameters</h3>
+                <div class="motor-type">
+                    <strong>Motor Nameplate Data Entry:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Motor Voltage:</strong> Enter exactly as nameplate (230V or 460V). VFD uses this for V/Hz ratio calculation.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Motor FLA:</strong> Critical for overload protection. VFD thermal model uses this. Enter nameplate value ±1%.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Motor Rated Frequency:</strong> Typically 60Hz (USA) or 50Hz (international). Sets base speed point.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Motor Rated Speed:</strong> Enter nameplate RPM (e.g., 1750 for 4-pole). VFD calculates slip compensation.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Motor Power Factor:</strong> Enter nameplate PF (typically 0.82-0.88). Used for current limit calculations.
+                    </div>
+                </div>
+                
+                <h3>Acceleration/Deceleration Settings</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Pumps/Fans</div>
+                        <div class="spec-value">10-20 sec</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Soft start/stop</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Conveyors</div>
+                        <div class="spec-value">5-10 sec</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Moderate inertia</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Machine Tools</div>
+                        <div class="spec-value">1-3 sec</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Fast response</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">High Inertia</div>
+                        <div class="spec-value">30-60 sec</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Flywheels, large fans</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Overcurrent Trips:</strong> If VFD trips on accel/decel, increase ramp times by 50%. Check for mechanical binding. Verify motor autotune was completed.
+                </div>
+                
+                <h3>Advanced Parameters</h3>
+                <div class="motor-type">
+                    <strong>V/Hz Curve Adjustment:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Voltage Boost:</strong> Add 1-5% extra voltage at low Hz to overcome stiction. Typical: 2-3V boost at 0-10Hz. Prevents stalling at low speed.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Linear vs. Quadratic:</strong> Linear for constant torque (conveyors). Quadratic for variable torque (centrifugal pumps/fans) - saves energy.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Slip Compensation:</strong> Enable for sensorless vector. Maintains speed under varying load. Set to 3-5% of base speed.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Auto-Tuning Procedure:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Stationary Tune:</strong> Motor must be uncoupled. VFD applies DC then AC to measure resistance, inductance, rotor time constant. Takes 30-60 sec.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Rotational Tune:</strong> Motor spins to measure back-EMF and inertia. More accurate but requires uncoupled shaft. Takes 2-3 min.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>When Required:</strong> Always tune after VFD installation, motor replacement, or if performance degrades. Store parameters to memory.
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Energy Savings:</strong> Enable energy optimization mode for variable torque loads. VFD reduces voltage proportionally - can save 20-30% energy vs. across-line.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔍 Common VFD Faults & Solutions</h2>
+                
+                <div class="motor-type">
+                    <strong>Fault: Overcurrent (OC) - Trip during acceleration</strong>
+                    <ul>
+                        <li><strong>Cause:</strong> Ramp time too short, motor binding, incorrect motor parameters</li>
+                        <li><strong>Fix:</strong> Increase accel time to 15-20 sec. Verify motor rotates freely. Re-run autotune. Check for mechanical overload.</li>
+                        <li><strong>Prevention:</strong> Size VFD 20% larger than motor for high-inertia loads</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Fault: Overvoltage (OV) - Trip during deceleration</strong>
+                    <ul>
+                        <li><strong>Cause:</strong> Regenerative energy from load (high inertia). Motor acts as generator, charges DC bus >820V (460V system).</li>
+                        <li><strong>Fix:</strong> Increase decel time to 30+ sec. Install dynamic braking resistor. Enable DC injection braking at 5Hz.</li>
+                        <li><strong>Prevention:</strong> Spec braking resistor for >20HP motors with load inertia >5× motor inertia</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Fault: Ground Fault (GF)</strong>
+                    <ul>
+                        <li><strong>Cause:</strong> Motor winding insulation failure, damaged cable, moisture in motor</li>
+                        <li><strong>Fix:</strong> Megger test motor phase-to-ground (min 2MΩ). Inspect cable for damage. Check terminal box for moisture/contamination.</li>
+                        <li><strong>Prevention:</strong> Use VFD-rated motors (inverter duty). Install output reactors for long cable runs (>150ft)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Fault: Motor Overload (OL)</strong>
+                    <ul>
+                        <li><strong>Cause:</strong> Continuous overcurrent, poor cooling, high ambient temp, incorrect FLA setting</li>
+                        <li><strong>Fix:</strong> Verify motor FLA parameter matches nameplate. Check motor cooling fan operation. Reduce load or upsize motor.</li>
+                        <li><strong>Prevention:</strong> Set VFD motor overload to 105% of nameplate FLA for Class 10 thermal protection</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Fault: DC Bus Undervoltage (UV)</strong>
+                    <ul>
+                        <li><strong>Cause:</strong> Input voltage sag, loose connections, blown fuse, weak utility supply</li>
+                        <li><strong>Fix:</strong> Measure input voltage under load (should be ±10% of rated). Tighten all power connections. Check fuses with multimeter.</li>
+                        <li><strong>Prevention:</strong> Install input line reactor. Use dedicated transformer for large VFDs (>50HP)</li>
+                    </ul>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Safety Warning:</strong> VFD DC bus capacitors store lethal voltage for 5+ minutes after power-off. Always wait 10 min and verify <50V DC before touching internals.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📡 Harmonic Mitigation</h2>
+                
+                <h3>Harmonic Distortion Levels</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Standard VFD</div>
+                        <div class="spec-value">35% THD</div>
+                        <div style="font-size:0.75em; margin-top:4px;">6-pulse rectifier</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">With Input Reactor</div>
+                        <div class="spec-value">25% THD</div>
+                        <div style="font-size:0.75em; margin-top:4px;">3% impedance</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">12-Pulse VFD</div>
+                        <div class="spec-value">10% THD</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Phase-shifting transformer</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Active Front End</div>
+                        <div class="spec-value">5% THD</div>
+                        <div style="font-size:0.75em; margin-top:4px;">IGBT input stage</div>
+                    </div>
+                </div>
+                
+                <h3>When Harmonic Mitigation Required</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Total VFD Load:</strong> If VFDs >30% of transformer capacity, install reactors or active filters. IEEE 519 limit = 5% THD at PCC.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Sensitive Equipment:</strong> Medical facilities, data centers, precision machining require <8% THD. Use 18-pulse or active front end VFDs.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Power Factor Correction:</strong> Never install capacitor banks on VFD circuits. Harmonics cause resonance and capacitor failure. Use active PFC built into VFD.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Cost-Effective Solution:</strong> 3% line reactors reduce THD from 35% to 25% for <$200. Must be sized for continuous VFD input current, not motor FLA.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ VFD Commissioning Checklist</h2>
+                <div class="motor-type">
+                    <strong>Pre-Startup Verification:</strong>
+                    <ul>
+                        <li>☐ Input voltage measured and matches VFD rating ±5%</li>
+                        <li>☐ All power connections torqued per manual (typically 20-40 lb-in)</li>
+                        <li>☐ VFD chassis ground <1Ω to building ground</li>
+                        <li>☐ Output cable shield grounded at VFD end only (360° bond)</li>
+                        <li>☐ Control wiring separated 12" from power cables</li>
+                        <li>☐ Motor uncoupled from load for initial test</li>
+                        <li>☐ Cooling fans operational (listen for air flow)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Parameter Programming:</strong>
+                    <ul>
+                        <li>☐ Motor nameplate data entered (V, A, Hz, RPM, PF)</li>
+                        <li>☐ Acceleration time set (start 15 sec, adjust as needed)</li>
+                        <li>☐ Deceleration time set (start 20 sec minimum)</li>
+                        <li>☐ Maximum frequency limited to motor rating (typically 60Hz)</li>
+                        <li>☐ Minimum frequency set (typically 5-10Hz for cooling)</li>
+                        <li>☐ Auto-tune completed successfully (store to EEPROM)</li>
+                        <li>☐ Overload protection enabled at 105% motor FLA</li>
+                        <li>☐ Control mode selected (local/remote, 2-wire/3-wire)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Performance Verification:</strong>
+                    <ul>
+                        <li>☐ Motor rotates correct direction (swap U-V if reversed)</li>
+                        <li>☐ No-load current 25-35% of motor FLA</li>
+                        <li>☐ Speed ramp smooth with no oscillation</li>
+                        <li>☐ DC bus voltage stable 1.35× input voltage ±5%</li>
+                        <li>☐ Output frequency matches commanded speed ±0.1Hz</li>
+                        <li>☐ Load test at 50%, 75%, 100% - no faults</li>
+                        <li>☐ All fault logs cleared and documented</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Preventive Maintenance Tab -->
+        <div id="maintenance" class="tab-content">
+            <div class="guide-section">
+                <h2>🔧 Preventive Maintenance Schedule</h2>
+                
+                <h3>Daily Inspections (During Operation)</h3>
+                <span class="skill-level beginner">Beginner</span>
+                
+                <div class="motor-type">
+                    <strong>Visual & Auditory Checks:</strong>
+                    <ul>
+                        <li>Listen for unusual noise (grinding, rattling, squealing)</li>
+                        <li>Check for excessive vibration (feel motor frame by hand)</li>
+                        <li>Look for visible damage, loose connections, or leaking lubricant</li>
+                        <li>Verify cooling airflow is unobstructed</li>
+                        <li>Note any unusual odors (burning insulation, hot bearings)</li>
+                    </ul>
+                    <div class="tip">
+                        💡 <strong>Quick Check:</strong> Touch motor frame - should be warm but not too hot to hold (target <60°C). If too hot, investigate immediately.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Operating Parameters (If Instrumented):</strong>
+                    <ul>
+                        <li>Current draw within ±10% of baseline reading</li>
+                        <li>Voltage at motor terminals within ±5% of rated</li>
+                        <li>Phase balance <5% variation (three-phase motors)</li>
+                        <li>Speed/frequency matches setpoint ±2%</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📅 Weekly Maintenance Tasks</h2>
+                <span class="skill-level beginner">Beginner</span>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Cleanliness Inspection:</strong> Remove dust, dirt, and debris from motor exterior. Clean cooling vents with compressed air (30 PSI max). Vacuum accumulated dirt from base/foundation.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Belt Drive Check (if applicable):</strong> Inspect V-belts for wear, cracks, glazing. Check tension - 1/2" deflection per 12" span. Realign if pulleys misaligned >1/16".
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Connection Tightness:</strong> Visually inspect terminal box connections. Retighten if any signs of arcing, discoloration, or looseness (use torque screwdriver).
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Vibration Baseline:</strong> Use vibration pen or smartphone app. Record readings at motor feet (horizontal/vertical/axial). Compare to baseline - alert if >25% increase.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Temperature Spot Check:</strong> Use infrared thermometer. Check motor frame (target <70°C), bearings (target <65°C), terminal box connections (no hot spots >10°C above ambient).
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Weekly Alert Thresholds:</strong> Vibration >4.5mm/s, temperature >80°C, current increase >15%, unusual noise = stop and investigate before continuing operation.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📆 Monthly Maintenance Tasks</h2>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="motor-type">
+                    <strong>Detailed Inspections:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Insulation Resistance Test:</strong> Disconnect all power (LOTO). Use 500V DC megohmmeter. Test phase-to-ground and phase-to-phase. Minimum acceptable: 1MΩ per kV + 1MΩ. Record results.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Bearing Lubrication (grease):</strong> For motors with grease fittings, apply NLGI Grade 2 lithium complex grease. Add 2-3 pumps while motor running. Purge until clean grease appears. Wipe excess.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Coupling Inspection:</strong> Check for wear, cracks, or deterioration. Verify alignment hasn't shifted (max 0.003" offset). Replace if elastomer shows hardening or cracking.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Mounting Hardware:</strong> Check all foundation bolts for tightness. Retorque to specification. Inspect grout for cracks or voids. Look for soft foot condition.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Current Signature Analysis:</strong> Measure and log running current all three phases. Calculate imbalance percentage. Trend over time - increasing current indicates developing problem.
+                    </div>
+                </div>
+                
+                <h3>Lubrication Schedule by Bearing Size</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Small (56-143T)</div>
+                        <div class="spec-value">6 months</div>
+                        <div style="font-size:0.75em; margin-top:4px;">0.5-1 oz grease</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Medium (182-256T)</div>
+                        <div class="spec-value">3 months</div>
+                        <div style="font-size:0.75em; margin-top:4px;">1-2 oz grease</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Large (284T-326T)</div>
+                        <div class="spec-value">1 month</div>
+                        <div style="font-size:0.75em; margin-top:4px;">2-4 oz grease</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Extra Large (>360T)</div>
+                        <div class="spec-value">2 weeks</div>
+                        <div style="font-size:0.75em; margin-top:4px;">4-8 oz grease</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Grease Type Matters:</strong> Always use manufacturer-specified grease. Most common: Polyurea or lithium complex NLGI Grade 2. Never mix incompatible greases - causes bearing failure.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📋 Quarterly Maintenance (Every 3 Months)</h2>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="motor-type">
+                    <strong>Comprehensive Inspections:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Vibration Analysis:</strong> Use calibrated accelerometer. Measure at motor feet and bearing housings in 3 axes. Compare spectrum to baseline. Look for bearing defect frequencies.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Thermographic Survey:</strong> Use thermal imaging camera. Scan entire motor during operation. Check for hot spots in windings, connections, bearings. Document with images.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Power Quality Analysis:</strong> Measure voltage/current harmonics, power factor, voltage unbalance. Record THD (target <5%). Check for voltage transients or sags.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Alignment Verification:</strong> Check shaft alignment using dial indicators. Maximum offset: 0.002" for speeds >1800 RPM. Realign if exceeded. Check for thermal growth.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Bearing Condition:</strong> Listen with ultrasonic detector (40kHz). Measure in dB. Compare to baseline. Increase >8dB indicates bearing wear. Oil analysis if oil-lubricated.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Electrical Connections:</strong> Power down (LOTO). Open terminal box. Inspect for corrosion, overheating signs, loose lugs. Retorque all connections. Clean with contact cleaner.
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Quarterly Failure Indicators:</strong> Insulation resistance <2MΩ, vibration >7mm/s, bearing temp >75°C, current imbalance >10% = schedule immediate repair/replacement.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📆 Annual Maintenance (Yearly)</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <div class="motor-type">
+                    <strong>Major Service Tasks:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Motor Disassembly & Inspection:</strong> Remove motor from service. Disassemble completely. Inspect rotor, stator, bearings, windings for wear, contamination, or damage.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Bearing Replacement:</strong> Replace all bearings regardless of condition (preventive). Clean bearing housings thoroughly. Install new bearings per manufacturer specs. Apply correct lubricant.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Winding Resistance Test:</strong> Measure DC resistance of each phase. Should be balanced within ±5%. Compare to baseline - resistance increase indicates overheating history.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Polarization Index Test:</strong> Apply 500V DC for 10 minutes. Record resistance at 1 min and 10 min. Calculate PI = R(10min)/R(1min). Good motor: PI >2.0, Fair: 1.0-2.0, Poor: <1.0.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Air Gap Measurement:</strong> Use feeler gauges. Check air gap uniformity around rotor circumference. Should be uniform ±10%. Eccentricity >20% indicates bearing or shaft issues.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Cleaning & Repainting:</strong> Clean stator and rotor with solvent. Remove all dirt, oil, moisture. Bake windings at 105°C for 4 hours if moisture detected. Repaint exterior with motor-rated paint.
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <strong>Reassembly & Testing:</strong> Reassemble with new gaskets. Torque all bolts to spec. Run no-load test for 4 hours. Record vibration, temperature, current. Compare to original baseline.
+                    </div>
+                </div>
+                
+                <h3>Critical Motor Annual Recertification</h3>
+                <div class="motor-type">
+                    <strong>For Safety-Critical Applications (fire pumps, emergency systems, critical process):</strong>
+                    <ul>
+                        <li>Full load test at 125% rated current for 2 hours minimum</li>
+                        <li>Surge test at 2× rated voltage + 1000V to verify turn-to-turn insulation</li>
+                        <li>High-potential (hi-pot) test at 2× rated voltage + 1000V for 1 minute</li>
+                        <li>Shaft runout check - max 0.002" TIR (Total Indicated Runout)</li>
+                        <li>Complete documentation with serial number, test results, tech signature</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📊 Condition Monitoring Thresholds</h2>
+                
+                <h3>Vibration Severity Chart (ISO 10816)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Good</div>
+                        <div class="spec-value"><2.8 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Normal operation</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Acceptable</div>
+                        <div class="spec-value">2.8-7.1 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Monitor closely</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Unsatisfactory</div>
+                        <div class="spec-value">7.1-11.2 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Schedule repair</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">Unacceptable</div>
+                        <div class="spec-value">>11.2 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Shutdown required</div>
+                    </div>
+                </div>
+                
+                <h3>Temperature Limits (Bearing & Winding)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Normal</div>
+                        <div class="spec-value"><70°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Bearings OK</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Caution</div>
+                        <div class="spec-value">70-85°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Check lubrication</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Warning</div>
+                        <div class="spec-value">85-100°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Reduce load</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">Critical</div>
+                        <div class="spec-value">>100°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Shutdown now</div>
+                    </div>
+                </div>
+                
+                <h3>Insulation Resistance Trending</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Excellent</div>
+                        <div class="spec-value">>100 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">New/dry motor</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Good</div>
+                        <div class="spec-value">10-100 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Normal aged motor</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Questionable</div>
+                        <div class="spec-value">2-10 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Monitor monthly</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">Poor</div>
+                        <div class="spec-value"><2 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Rewind or replace</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📝 Maintenance Record Keeping</h2>
+                
+                <div class="motor-type">
+                    <strong>Essential Data to Log:</strong>
+                    <ul>
+                        <li><strong>Motor Identification:</strong> Serial number, location, manufacturer, model, HP, voltage, FLA</li>
+                        <li><strong>Baseline Measurements:</strong> Initial vibration (3 axes), temperature, current draw, insulation resistance</li>
+                        <li><strong>Trending Data:</strong> Monthly vibration, temperature, current, resistance readings with dates</li>
+                        <li><strong>Maintenance Actions:</strong> Date, technician, task performed, parts replaced, torque values</li>
+                        <li><strong>Lubrication Log:</strong> Date, grease type/amount, technician, bearing temperature before/after</li>
+                        <li><strong>Failure History:</strong> Date, symptom, root cause, corrective action, downtime hours</li>
+                        <li><strong>Alarm Events:</strong> Date/time, parameter exceeded, motor condition, action taken</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Digital Record Keeping:</strong> Use CMMS (Computerized Maintenance Management System) or mobile app to track all motors. Set automatic reminders for scheduled PM tasks. Trend analysis reveals failure patterns.
+                </div>
+                
+                <h3>Maintenance Cost Tracking</h3>
+                <div class="motor-type">
+                    <strong>Calculate Total Cost of Ownership:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Direct Costs:</strong> Labor hours × rate + parts + contractor services
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Downtime Costs:</strong> Production loss per hour × downtime hours
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Energy Costs:</strong> kW × operating hours × electricity rate per kWh
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Decision Threshold:</strong> If annual maintenance cost >50% of new motor cost, consider replacement vs. continued repair
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ Master Maintenance Checklist</h2>
+                
+                <div class="motor-type">
+                    <strong>DAILY (Operating Motors):</strong>
+                    <ul>
+                        <li>☐ Visual inspection for damage, leaks, loose parts</li>
+                        <li>☐ Listen for unusual noise or vibration</li>
+                        <li>☐ Feel motor temperature (should be warm, not hot)</li>
+                        <li>☐ Check current draw on ammeter (if installed)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>WEEKLY:</strong>
+                    <ul>
+                        <li>☐ Clean motor exterior and cooling vents</li>
+                        <li>☐ Check belt tension and condition</li>
+                        <li>☐ Measure vibration levels (pen or app)</li>
+                        <li>☐ IR temperature scan of bearings and connections</li>
+                        <li>☐ Verify mounting bolts tight</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>MONTHLY:</strong>
+                    <ul>
+                        <li>☐ Megger insulation resistance test (500V DC)</li>
+                        <li>☐ Lubricate bearings (if grease fittings present)</li>
+                        <li>☐ Inspect coupling for wear</li>
+                        <li>☐ Measure and log 3-phase current balance</li>
+                        <li>☐ Check terminal connections for tightness</li>
+                        <li>☐ Update maintenance log</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>QUARTERLY:</strong>
+                    <ul>
+                        <li>☐ Full vibration analysis with accelerometer</li>
+                        <li>☐ Thermal imaging survey</li>
+                        <li>☐ Power quality analysis (harmonics, PF)</li>
+                        <li>☐ Verify shaft alignment (dial indicators)</li>
+                        <li>☐ Ultrasonic bearing test (40kHz)</li>
+                        <li>☐ Inspect and retorque all electrical connections</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>ANNUALLY:</strong>
+                    <ul>
+                        <li>☐ Complete motor disassembly and inspection</li>
+                        <li>☐ Replace all bearings (preventive)</li>
+                        <li>☐ DC resistance and PI testing</li>
+                        <li>☐ Air gap measurement</li>
+                        <li>☐ Clean and bake windings if needed</li>
+                        <li>☐ Repaint exterior</li>
+                        <li>☐ Full load test and recertification</li>
+                        <li>☐ Update asset records and baseline data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Safety & LOTO Tab -->
+        <div id="safety" class="tab-content">
+            <div class="guide-section">
+                <h2>⚠️ Safety & Lockout/Tagout Procedures</h2>
+                
+                <div class="warning" style="padding: 3% 2%; margin: 2% 0;">
+                    ⚠️ <strong>CRITICAL SAFETY NOTICE:</strong> Electric motors can cause serious injury or death from electrical shock, arc flash, rotating parts, and stored energy. ALWAYS follow LOTO procedures. NEVER work on energized equipment unless absolutely necessary and properly trained/equipped.
+                </div>
+                
+                <h3>Electrical Hazards - Voltage Classifications</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Low Voltage</div>
+                        <div class="spec-value"><50V AC</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Minimal shock risk</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Standard Voltage</div>
+                        <div class="spec-value">50-600V</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Most motors<br>Can be fatal</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Medium Voltage</div>
+                        <div class="spec-value">600V-15kV</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Specialized training<br>Arc flash risk</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">High Voltage</div>
+                        <div class="spec-value">>15kV</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Extreme danger<br>Expert only</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🦺 Personal Protective Equipment (PPE)</h2>
+                <span class="skill-level beginner">Required for All Personnel</span>
+                
+                <div class="motor-type">
+                    <strong>Basic PPE (Inspection & Low-Risk Tasks):</strong>
+                    <ul>
+                        <li><strong>Safety Glasses:</strong> ANSI Z87.1 rated with side shields. Required at all times in motor areas.</li>
+                        <li><strong>Steel-Toe Boots:</strong> ASTM F2413 rated. Electrical hazard (EH) rated for work on energized equipment.</li>
+                        <li><strong>Hearing Protection:</strong> Required in areas >85 dBA. Use earplugs (NRR 32) or earmuffs (NRR 28) near running motors.</li>
+                        <li><strong>Work Gloves:</strong> Leather or synthetic for mechanical work. NO GLOVES near rotating equipment.</li>
+                        <li><strong>Long Pants & Shirt:</strong> No loose clothing. Tuck in shirt. Remove jewelry, watches, rings.</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Electrical Work PPE (NFPA 70E Compliance):</strong>
+                    <ul>
+                        <li><strong>Voltage-Rated Gloves:</strong> Class 00 (500V max), Class 0 (1000V), Class 1 (7500V). Must be tested every 6 months.</li>
+                        <li><strong>Leather Protectors:</strong> Worn over voltage-rated gloves to prevent punctures.</li>
+                        <li><strong>Arc-Rated Clothing:</strong> Minimum 8 cal/cm² for 480V work. 40 cal/cm² for medium voltage. Face shield, hood, coveralls.</li>
+                        <li><strong>Insulated Tools:</strong> 1000V rated screwdrivers, pliers, wrenches. Verify integrity before each use.</li>
+                        <li><strong>Voltage Detector:</strong> Non-contact tester for initial check. Contact probe tester for verification.</li>
+                    </ul>
+                </div>
+                
+                <h3>Arc Flash Boundary Calculations</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">120V-240V 1Ø</div>
+                        <div class="spec-value">4 feet</div>
+                        <div style="font-size:0.75em; margin-top:4px;">PPE Cat 1<br>4 cal/cm²</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">208V-480V 3Ø</div>
+                        <div class="spec-value">4-10 feet</div>
+                        <div style="font-size:0.75em; margin-top:4px;">PPE Cat 2<br>8 cal/cm²</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">480V-600V 3Ø</div>
+                        <div class="spec-value">10-20 feet</div>
+                        <div style="font-size:0.75em; margin-top:4px;">PPE Cat 3<br>25 cal/cm²</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Medium Voltage</div>
+                        <div class="spec-value">20-50 feet</div>
+                        <div style="font-size:0.75em; margin-top:4px;">PPE Cat 4<br>40 cal/cm²</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Arc Flash Danger:</strong> Arc flash can reach 35,000°F instantly. Wear ALL required PPE. Never work alone on energized equipment >50V. Have emergency rescue plan.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔐 Lockout/Tagout (LOTO) Procedures</h2>
+                <span class="skill-level intermediate">OSHA 1910.147 Compliance</span>
+                
+                <h3>LOTO Step-by-Step Procedure</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Preparation & Notification:</strong> Identify all energy sources (electrical, mechanical, hydraulic, pneumatic, thermal, chemical, gravity). Notify all affected personnel. Post warning signs. Establish who has authority.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Equipment Shutdown:</strong> Use normal shutdown procedure. Press STOP button or turn off control switch. DO NOT forcibly shut down - could damage equipment or create hazards.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Isolate Energy Sources:</strong> Open main disconnect switch. Remove or rack out circuit breaker. Pull and store fuses in lockbox. Close manual valves for pneumatic/hydraulic systems.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Apply Lockout Devices:</strong> Install LOTO lock on disconnect. Each worker applies their own lock (never share). Use multiple-lock hasp if needed. Attach danger tag with name, date, reason.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Release Stored Energy:</strong> Discharge capacitors (wait 5 min, then short with grounding stick). Bleed pneumatic/hydraulic pressure. Block suspended components. Relieve spring tension.
+                </div>
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Verify Zero Energy:</strong> Use voltage tester on all phases to ground. Test tester before and after (live-dead-live test). Try to operate equipment (should not start). Measure at motor terminals.
+                </div>
+                <div class="step">
+                    <span class="step-number">7</span>
+                    <strong>Perform Work:</strong> Only after zero energy verified. Re-verify periodically during long jobs (capacitors can re-charge). Maintain lockout throughout entire work period.
+                </div>
+                <div class="step">
+                    <span class="step-number">8</span>
+                    <strong>Restore Energy:</strong> Remove all tools and equipment. Replace guards and covers. Inspect work area - ensure no one inside hazard zone. Notify all personnel. Remove tags THEN locks. Test equipment.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Group LOTO:</strong> When multiple people work on same equipment, EACH person applies their own lock. Last person to finish removes their lock. Supervisor verifies all personnel accounted for.
+                </div>
+                
+                <h3>Common Energy Sources Requiring LOTO</h3>
+                <div class="motor-type">
+                    <strong>Electrical:</strong>
+                    <ul>
+                        <li>Main power disconnect or circuit breaker</li>
+                        <li>Control power transformer (120V circuits)</li>
+                        <li>VFD DC bus capacitors (wait 5-10 minutes to discharge)</li>
+                        <li>Battery backup systems (UPS)</li>
+                        <li>Emergency generator auto-start circuits</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Mechanical:</strong>
+                    <ul>
+                        <li>Rotating shaft inertia (use brake or chock)</li>
+                        <li>Belt/chain drives (can rotate motor when driven load moves)</li>
+                        <li>Flywheels (high stored kinetic energy - takes time to stop)</li>
+                        <li>Coupled equipment (pumps, fans can back-drive motor)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Other Hazards:</strong>
+                    <ul>
+                        <li>Process media backflow through pumps (close isolation valves)</li>
+                        <li>Hot surfaces (>140°F - allow cool-down time)</li>
+                        <li>Pressurized systems (air, hydraulic - bleed pressure)</li>
+                        <li>Gravity loads (suspended masses - install blocks)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚡ Voltage Testing Procedures</h2>
+                <span class="skill-level intermediate">Required Before ANY Work</span>
+                
+                <h3>Live-Dead-Live Testing Method</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Test the Tester (LIVE):</strong> Verify voltage detector works on known energized source. Check battery indicator. Ensure audible/visual alarm functions properly.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Test Equipment (DEAD):</strong> Test each phase to ground and phase-to-phase. Hold probe firmly on conductor for 3+ seconds. Must show zero voltage on all points.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Re-Test the Tester (LIVE):</strong> Immediately return to known energized source. Verify tester still works. If tester fails, consider equipment still energized.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>NEVER Trust:</strong> Indicator lights, control panel displays, or someone else's word. ALWAYS perform your own voltage test with calibrated equipment.
+                </div>
+                
+                <h3>VFD Specific Safety - DC Bus Hazard</h3>
+                <div class="motor-type">
+                    <strong>VFD Internal Voltage After Power-Off:</strong>
+                    <ul>
+                        <li>DC bus capacitors store 1.414 × input voltage (e.g., 480V AC = 680V DC)</li>
+                        <li>Capacitors can remain charged for 5-15 minutes after disconnect</li>
+                        <li>ALWAYS wait manufacturer's specified time (typically 10 minutes minimum)</li>
+                        <li>Measure DC bus voltage with meter rated for DC before opening VFD</li>
+                        <li>Safe voltage: <50V DC. If higher, wait longer or use discharge tool</li>
+                        <li>Never short DC bus terminals - creates arc flash hazard</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚙️ Mechanical Hazards & Guarding</h2>
+                
+                <h3>Rotating Equipment Hazards</h3>
+                <div class="warning">
+                    ⚠️ <strong>Entanglement Risk:</strong> Rotating shafts, couplings, belts, and pulleys can catch clothing, hair, gloves, jewelry in milliseconds. Injuries include amputation, scalping, broken bones, death.
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Safe Work Practices:</strong>
+                    <ul>
+                        <li><strong>Never bypass guards:</strong> All coupling guards, belt guards, pulley guards must be in place before operation</li>
+                        <li><strong>No loose clothing:</strong> Tuck in shirt, roll up sleeves, remove ties, secure long hair</li>
+                        <li><strong>Remove jewelry:</strong> Rings, watches, necklaces, bracelets can catch on rotating parts</li>
+                        <li><strong>No gloves near rotation:</strong> Gloves can get caught and pull hand into machinery</li>
+                        <li><strong>Bump test caution:</strong> When checking rotation, use momentary jog only. Stand clear. Be ready for emergency stop.</li>
+                        <li><strong>Wait for complete stop:</strong> Motor coasts after power-off. Wait until ZERO rotation before approaching.</li>
+                    </ul>
+                </div>
+                
+                <h3>Required Machine Guarding (OSHA 1910.212)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Coupling Guards</div>
+                        <div class="spec-value">Required</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Cover entire coupling<br>+1" past ends</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Belt/Pulley Guards</div>
+                        <div class="spec-value">Required</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Enclose nip points<br>U-guards acceptable</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Shaft Extensions</div>
+                        <div class="spec-value">Required >1/4"</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Any protrusion<br>beyond coupling</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Keyways</div>
+                        <div class="spec-value">Required</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Sharp edges<br>on exposed shafts</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔥 Emergency Procedures</h2>
+                
+                <h3>Electrical Shock Response</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>De-energize Immediately:</strong> Turn off power at disconnect. DO NOT touch victim while energized. Use non-conductive material (dry wood pole) to separate if necessary.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Call Emergency Services:</strong> Dial 911 immediately. State "electrical shock victim" and location. Request AED (Automated External Defibrillator) if available.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Begin CPR:</strong> If victim not breathing, start chest compressions immediately (100-120/min). Use AED when available. Continue until EMS arrives.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Treat for Shock:</strong> Keep victim warm. Elevate legs 12" (unless spinal injury suspected). Do not give food/water. Monitor breathing and pulse continuously.
+                </div>
+                
+                <h3>Electrical Fire</h3>
+                <div class="motor-type">
+                    <strong>Class C Fire - Energized Electrical:</strong>
+                    <ul>
+                        <li><strong>De-energize if possible:</strong> Turn off power at disconnect or breaker</li>
+                        <li><strong>Use Class C extinguisher:</strong> CO₂ or dry chemical (ABC). NEVER use water on energized equipment</li>
+                        <li><strong>Evacuate if large:</strong> If fire >2 feet, evacuate and call fire department</li>
+                        <li><strong>After extinguishing:</strong> Keep equipment de-energized. Inspect for damage before re-energizing</li>
+                    </ul>
+                </div>
+                
+                <h3>Motor Overheating/Smoke</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Immediate Shutdown:</strong> Press emergency stop. Open disconnect if safe to approach.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Evacuate Area:</strong> Burning insulation produces toxic fumes. Clear 50 ft radius.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Monitor for Fire:</strong> Have extinguisher ready. Do not approach until motor cools.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Investigation:</strong> After cool-down, perform insulation resistance test. Check for winding damage, bearing failure, overload condition.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📋 Permit-Required Confined Spaces</h2>
+                
+                <div class="motor-type">
+                    <strong>Large Motor Rooms & Vaults May Require Confined Space Entry Permit:</strong>
+                    <ul>
+                        <li>Limited entry/exit points (single door <24" or hatch access)</li>
+                        <li>Not designed for continuous occupancy</li>
+                        <li>Potential for hazardous atmosphere (O₂ deficiency, toxic gases)</li>
+                        <li>Engulfment hazards (cable vaults with sand/gravel fill)</li>
+                    </ul>
+                </div>
+                
+                <h3>Confined Space Entry Requirements</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Atmospheric Testing:</strong> Test O₂ (19.5-23.5%), LEL <10%, H₂S <10ppm, CO <35ppm. Test continuously during entry.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Ventilation:</strong> Force fresh air into space. Exhaust at opposite end. Minimum 4 air changes before entry.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Attendant Required:</strong> Stationed outside at all times. Maintains communication with entrant. Never enters to rescue - calls emergency services.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Rescue Equipment:</strong> Tripod with winch or davit arm. Full-body harness on entrant. Mechanical retrieval system (no reliance on attendant strength).
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ Safety Checklist - Before ANY Motor Work</h2>
+                
+                <div class="motor-type">
+                    <strong>Personal Preparation:</strong>
+                    <ul>
+                        <li>☐ Wearing all required PPE for task (glasses, boots, gloves, arc-rated clothing)</li>
+                        <li>☐ No loose clothing, jewelry, or items that could catch</li>
+                        <li>☐ Physically and mentally fit for task (adequate rest, not impaired)</li>
+                        <li>☐ Trained and authorized for specific work being performed</li>
+                        <li>☐ Reviewed procedures and identified all hazards</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Equipment & Area:</strong>
+                    <ul>
+                        <li>☐ LOTO applied by each worker (personal lock and tag)</li>
+                        <li>☐ Zero energy verified with voltage tester (live-dead-live test)</li>
+                        <li>☐ All stored energy released (capacitors discharged, pressure relieved)</li>
+                        <li>☐ Work area clear of tripping hazards and obstructions</li>
+                        <li>☐ Adequate lighting (minimum 30 foot-candles for electrical work)</li>
+                        <li>☐ Emergency stop button location identified</li>
+                        <li>☐ Fire extinguisher location known and accessible</li>
+                        <li>☐ Communication method established (radio, phone, buddy system)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Documentation & Authorization:</strong>
+                    <ul>
+                        <li>☐ Work permit signed by authorized supervisor</li>
+                        <li>☐ LOTO tag completed with name, date, reason</li>
+                        <li>☐ Affected personnel notified of work activity</li>
+                        <li>☐ Arc flash boundary calculated and marked (if energized work)</li>
+                        <li>☐ Confined space permit obtained if applicable</li>
+                        <li>☐ Hot work permit for welding/cutting/grinding</li>
+                    </ul>
+                </div>
+                
+                <div class="warning" style="padding: 3% 2%; margin: 2% 0;">
+                    ⚠️ <strong>REMEMBER:</strong> No job is so urgent that it cannot be done safely. If conditions are unsafe, STOP WORK. Notify supervisor. Never take shortcuts with safety procedures. Your life depends on it.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Diagnostic & Testing Tab -->
+        <div id="diagnostics" class="tab-content">
+            <div class="guide-section">
+                <h2>🔍 Diagnostic & Testing Procedures</h2>
+                
+                <h3>Insulation Resistance Testing (Megger Test)</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Preparation:</strong> De-energize motor (LOTO). Disconnect all power cables. Remove any connected devices (VFDs, soft starters, surge protectors). Ground motor frame.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Test Voltage Selection:</strong> Use 500V DC for motors rated ≤1000V. Use 1000V DC for motors >1000V. For new motors, can use 2× rated voltage + 1000V.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Phase-to-Ground Test:</strong> Connect megger positive to phase terminal (T1, T2, or T3). Connect negative to motor frame/ground. Apply voltage for 60 seconds. Record resistance.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Phase-to-Phase Test:</strong> Test T1-T2, T2-T3, T3-T1. Should read very high (typically >100MΩ for good insulation).
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Discharge:</strong> After testing, short all phases to ground for 4× test duration (240 sec for 60 sec test). Capacitive charging can hold voltage.
+                </div>
+                
+                <h3>Insulation Resistance Interpretation</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Excellent</div>
+                        <div class="spec-value">>100 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">New/dry motor<br>No action needed</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Good</div>
+                        <div class="spec-value">10-100 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Normal aged motor<br>Continue monitoring</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Questionable</div>
+                        <div class="spec-value">2-10 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Possible moisture<br>Test weekly</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">Failed</div>
+                        <div class="spec-value"><2 MΩ</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Insulation failure<br>Do not operate</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Temperature Correction:</strong> Insulation resistance doubles for every 10°C decrease. Correct readings to 40°C standard: R₄₀ = R_measured × 0.5^[(T_measured - 40)/10]
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Moisture Contamination:</strong> If readings <10MΩ on dry motor, suspect moisture. Bake motor at 105°C for 4-8 hours. Re-test. If still low, winding contamination or damage likely.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚡ Polarization Index (PI) & Dielectric Absorption</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>PI Test Procedure</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Setup:</strong> Same as megger test. Use 500V DC. Ensure motor at stable temperature (±5°C during test).
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Apply Voltage:</strong> Apply test voltage continuously for 10 minutes. Do not interrupt. Record resistance at exactly 1 minute and 10 minutes.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Calculate PI:</strong> PI = R(10 min) ÷ R(1 min). Good motor shows increasing resistance over time as insulation polarizes.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Interpretation:</strong> PI >2.0 = Good condition. PI 1.0-2.0 = Questionable, monitor closely. PI <1.0 = Poor, likely contamination or moisture.
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Dielectric Absorption Ratio (DAR) - Faster Alternative:</strong>
+                    <ul>
+                        <li>Apply voltage for only 60 seconds total</li>
+                        <li>Record resistance at 30 sec and 60 sec</li>
+                        <li>DAR = R(60s) ÷ R(30s)</li>
+                        <li>Good: DAR >1.6, Questionable: 1.25-1.6, Poor: <1.25</li>
+                        <li>Use for quick field tests; PI more reliable for trending</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔌 Winding Resistance Testing</h2>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <h3>DC Resistance Measurement</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Equipment:</strong> Use digital multimeter with 0.01Ω resolution or micro-ohmmeter for large motors. 4-wire Kelvin connection for accuracy.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Three-Phase Test:</strong> Measure resistance T1-T2, T2-T3, T3-T1. All three readings should be identical ±5% for healthy motor.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Single-Phase Test:</strong> Measure main winding and start winding separately. Compare to nameplate or previous readings.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Temperature Correction:</strong> Resistance increases with temperature. Correct to 20°C: R₂₀ = R_measured × [234.5 / (234.5 + T_measured)]
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Common Winding Faults Detected:</strong>
+                    <ul>
+                        <li><strong>Open Circuit:</strong> Infinite resistance on one phase. Broken wire or connection.</li>
+                        <li><strong>Shorted Turns:</strong> One phase reads 10-20% lower than others. Internal short between turns.</li>
+                        <li><strong>Phase Imbalance:</strong> >5% difference between phases. Unequal turn count or poor connections.</li>
+                        <li><strong>High Resistance:</strong> All phases high vs. baseline. Corrosion, poor connections, or overheating history.</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Baseline Trending:</strong> Record winding resistance at commissioning and annually. 10% increase over baseline indicates developing problem (overheating, corrosion).
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📊 Vibration Analysis</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>Vibration Measurement Locations</h3>
+                <div class="motor-type">
+                    <strong>Standard Measurement Points (3 axes each):</strong>
+                    <ul>
+                        <li><strong>Drive End Bearing:</strong> Horizontal (H), Vertical (V), Axial (A) on bearing housing</li>
+                        <li><strong>Non-Drive End Bearing:</strong> H, V, A on opposite bearing</li>
+                        <li><strong>Motor Feet:</strong> H and V at each mounting foot (4 total)</li>
+                        <li><strong>Frame:</strong> H and V at motor center (mid-frame)</li>
+                    </ul>
+                </div>
+                
+                <h3>Vibration Severity Limits (ISO 10816-3)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Zone A - Good</div>
+                        <div class="spec-value">0-2.8 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Newly commissioned<br>Normal operation</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">Zone B - Acceptable</div>
+                        <div class="spec-value">2.8-7.1 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Long-term operation<br>Monitor trend</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(230, 126, 34, 0.2); border-left: 3px solid #e67e22;">
+                        <div class="spec-label">Zone C - Unsatisfactory</div>
+                        <div class="spec-value">7.1-11.2 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Limited operation<br>Plan repairs</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(231, 76, 60, 0.2); border-left: 3px solid #e74c3c;">
+                        <div class="spec-label">Zone D - Unacceptable</div>
+                        <div class="spec-value">>11.2 mm/s</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Severe damage<br>Shutdown required</div>
+                    </div>
+                </div>
+                
+                <h3>Fault Frequency Analysis</h3>
+                <div class="motor-type">
+                    <strong>Bearing Defect Frequencies (multiply by shaft RPM ÷ 60):</strong>
+                    <ul>
+                        <li><strong>BPFO (Outer Race):</strong> ~3.5-5× shaft frequency. High radial vibration. Stationary defect.</li>
+                        <li><strong>BPFI (Inner Race):</strong> ~5-7× shaft frequency. Modulated by 1× shaft. Rotating defect.</li>
+                        <li><strong>BSF (Ball Spin):</strong> ~2-3× shaft frequency. Less common, indicates ball damage.</li>
+                        <li><strong>FTF (Cage):</strong> ~0.4× shaft frequency. Low frequency, cage wear or damage.</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Common Vibration Signatures:</strong>
+                    <ul>
+                        <li><strong>1× RPM dominant:</strong> Unbalance (rotor mass imbalance). Primarily radial, same on both bearings.</li>
+                        <li><strong>2× RPM dominant:</strong> Misalignment (angular or parallel). Higher axial vibration.</li>
+                        <li><strong>High frequency (>1000 Hz):</strong> Bearing wear. Modulated noise, increases with load.</li>
+                        <li><strong>Electrical frequency (2× line freq):</strong> Rotor bar problems, eccentricity. 120Hz (60Hz system).</li>
+                        <li><strong>Belt/pulley frequency:</strong> Belt defects, pulley eccentricity. Number of belts × RPM.</li>
+                        <li><strong>Looseness:</strong> Multiple harmonics of 1× RPM (2×, 3×, 4×). Varies with load changes.</li>
+                    </ul>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Rapid Increase Alert:</strong> Vibration increase >25% in 1 week or >50% in 1 month indicates rapid deterioration. Investigate immediately - likely bearing failure imminent.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🌡️ Thermal Imaging (Infrared Thermography)</h2>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <h3>IR Scanning Procedure</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Operating Conditions:</strong> Motor must be at steady-state (running >30 min at normal load). Ambient temperature stable. No direct sunlight on motor.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Camera Settings:</strong> Set emissivity to 0.9 for painted surfaces, 0.2 for bare metal. Use high-resolution mode. Maintain 3-10 ft distance from motor.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Scan Pattern:</strong> Capture all four sides of motor. Close-up of terminal box, bearings, frame end-bells. Document with photos and temperature data.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Comparative Analysis:</strong> Compare similar motors under same load. Temperature difference >10°C indicates problem. Compare to baseline from when new.
+                </div>
+                
+                <h3>Temperature Thresholds & Fault Indicators</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Motor Frame</div>
+                        <div class="spec-value">40-70°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Normal range<br>>80°C investigate</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Bearings</div>
+                        <div class="spec-value">50-65°C</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Good lubrication<br>>75°C replace</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Terminal Box</div>
+                        <div class="spec-value"><10°C ΔT</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Connections OK<br>>20°C loose</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame Hot Spots</div>
+                        <div class="spec-value"><15°C ΔT</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Uniform heating<br>>30°C fault</div>
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Common IR Fault Patterns:</strong>
+                    <ul>
+                        <li><strong>Hot Terminal:</strong> One phase significantly hotter. Loose connection, high resistance joint. Tighten or replace.</li>
+                        <li><strong>Hot Bearing:</strong> 15-20°C above normal. Over-lubrication, under-lubrication, misalignment, or wear.</li>
+                        <li><strong>Localized Frame Hot Spot:</strong> Indicates internal winding short or turn-to-turn fault. Usually requires rewind.</li>
+                        <li><strong>Entire Frame Hot:</strong> Overload condition, poor ventilation, or high ambient. Check current draw and cooling.</li>
+                        <li><strong>Uneven Phase Temps:</strong> Phase imbalance, voltage unbalance, or single-phasing condition.</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Trending Program:</strong> Conduct IR surveys quarterly. Compare images over time. Temperature increase >5°C per quarter indicates developing problem. Store images with date/load/ambient data.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📡 Motor Circuit Analysis (MCA)</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>MCA Test Overview</h3>
+                <div class="motor-type">
+                    <strong>De-energized Testing - No Need to Run Motor:</strong>
+                    <ul>
+                        <li>Tests winding condition, insulation integrity, rotor health</li>
+                        <li>Detects turn-to-turn shorts, phase imbalance, contamination</li>
+                        <li>Identifies rotor bar defects and eccentricity</li>
+                        <li>Safe low-voltage testing (24-48V AC at various frequencies)</li>
+                        <li>Results in 5-10 minutes with portable analyzer</li>
+                    </ul>
+                </div>
+                
+                <h3>Key MCA Tests & Interpretation</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Insulation Resistance to Ground (IRG):</strong> Similar to megger but at lower voltage. >2MΩ good, <1MΩ poor. Fast screening test.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Phase Resistance (Ω):</strong> DC resistance of each winding. Should be balanced ±3%. Detects open circuits, shorted turns.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Inductance (mH):</strong> AC characteristic of winding. Imbalance >3% indicates turn-to-turn shorts or broken rotor bars.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Impedance (Ω):</strong> Combined resistance and reactance. Unbalance >3% = winding or rotor fault. Most sensitive test.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Phase Angle (degrees):</strong> Relationship between voltage and current. Deviation >2° indicates contamination or insulation degradation.
+                </div>
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Current/Frequency Response (I/F):</strong> Rotor influence test. Plots current vs. frequency sweep. Identifies rotor bar cracks, eccentricity.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>MCA Limitations:</strong> Cannot detect mechanical issues (bearings, alignment). Does not measure actual operating temperatures. Must be combined with other tests for complete diagnosis.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔊 Ultrasonic Testing</h2>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <h3>Bearing Condition Monitoring (40 kHz)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Equipment:</strong> Ultrasonic detector with headphones and dBμV meter. Magnetic contact probe for bearing housing attachment.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Baseline Measurement:</strong> Measure new or freshly greased bearing. Record dBμV reading. This is your reference point (typically 20-35 dBμV).
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Routine Monitoring:</strong> Monthly measurements on same bearing location. Compare to baseline. Listen for crackling, popping, or grinding sounds.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Interpretation:</strong> +8 dBμV = lack of lubrication, add grease. +12 dBμV = early bearing wear. +16 dBμV = advanced wear, schedule replacement.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Greasing Guidance:</strong> Monitor in real-time while greasing. Add grease until sound drops 6-8 dBμV. Stop when steady - over-greasing increases noise again.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Early Detection:</strong> Ultrasonic detects bearing defects 6-12 months before vibration analysis. Ideal for slow-speed motors (<300 RPM) where vibration is less effective.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚡ Power Quality Analysis</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>Three-Phase Power Measurements</h3>
+                <div class="motor-type">
+                    <strong>Critical Parameters to Monitor:</strong>
+                    <ul>
+                        <li><strong>Voltage Imbalance:</strong> Max deviation ÷ average voltage × 100%. Limit: <2%. Causes 6-10× higher temperature rise.</li>
+                        <li><strong>Current Imbalance:</strong> Should be <5% at full load. >10% indicates single-phasing, phase loss, or winding fault.</li>
+                        <li><strong>Voltage Sag/Swell:</strong> -10% sag or +10% swell acceptable short-term. Continuous operation requires ±5%.</li>
+                        <li><strong>Harmonics (THD):</strong> Voltage THD <5% ideal, <8% acceptable. Current THD <10% for motors, <5% for sensitive loads.</li>
+                        <li><strong>Power Factor:</strong> Target >0.90. Low PF (<0.80) = utility penalties, oversized wiring, voltage drop.</li>
+                    </ul>
+                </div>
+                
+                <h3>Harmonic Analysis</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">3rd Harmonic</div>
+                        <div class="spec-value">180 Hz</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Neutral overload<br>Single-phase loads</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">5th Harmonic</div>
+                        <div class="spec-value">300 Hz</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Motor heating<br>VFD signature</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">7th Harmonic</div>
+                        <div class="spec-value">420 Hz</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Torque pulsations<br>VFD rectifier</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">11th/13th</div>
+                        <div class="spec-value">660/780 Hz</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Transformer stress<br>Resonance risk</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Voltage Unbalance Impact:</strong> 3% voltage unbalance causes 18-25% increase in winding temperature. Major cause of premature motor failure. Install line reactors or balance loads.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ Diagnostic Testing Checklist</h2>
+                
+                <div class="motor-type">
+                    <strong>Quarterly Diagnostic Tests:</strong>
+                    <ul>
+                        <li>☐ Insulation resistance test (megger at 500V DC) - Record each phase to ground</li>
+                        <li>☐ Vibration analysis (3 axes at each bearing) - Compare to baseline</li>
+                        <li>☐ Infrared thermography scan - Document hot spots and connections</li>
+                        <li>☐ Ultrasonic bearing test - Measure dBμV levels, listen for defects</li>
+                        <li>☐ Three-phase current balance - Verify <5% variation between phases</li>
+                        <li>☐ Power quality snapshot - Voltage, harmonics, power factor</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Annual Comprehensive Tests:</strong>
+                    <ul>
+                        <li>☐ Polarization Index (PI) test - 10-minute megger test for trending</li>
+                        <li>☐ DC winding resistance - All phases, temperature corrected</li>
+                        <li>☐ Motor circuit analysis (MCA) - Complete electrical signature</li>
+                        <li>☐ Full vibration spectrum analysis - FFT to identify fault frequencies</li>
+                        <li>☐ Bearing oil analysis - If oil-lubricated (wear metals, contamination)</li>
+                        <li>☐ Air gap measurement - Rotor eccentricity check</li>
+                        <li>☐ Power quality 7-day logging - Capture transients and sags</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Predictive Maintenance ROI:</strong> Comprehensive testing program reduces unexpected failures by 70-85%. Extends motor life 30-50%. Maintenance cost is 5-10% of replacement cost.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Energy Efficiency & Optimization Tab -->
+        <div id="energy" class="tab-content">
+            <div class="guide-section">
+                <h2>💡 Energy Efficiency & Optimization</h2>
+                
+                <h3>Motor Efficiency Classes</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Standard Efficiency</div>
+                        <div class="spec-value">85-88%</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Legacy motors<br>Pre-1992</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">EPAct (IE1)</div>
+                        <div class="spec-value">88-91%</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Energy Policy Act<br>1992-2010</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Premium (IE3)</div>
+                        <div class="spec-value">91-95%</div>
+                        <div style="font-size:0.75em; margin-top:4px;">NEMA Premium<br>Current standard</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(52, 152, 219, 0.2); border-left: 3px solid #3498db;">
+                        <div class="spec-label">Super Premium (IE4)</div>
+                        <div class="spec-value">95-97%</div>
+                        <div style="font-size:0.75em; margin-top:4px;">High efficiency<br>2026+ target</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Efficiency Impact:</strong> Upgrading from 88% to 95% efficiency saves 7% energy. For 100HP motor running 8760 hr/yr at $0.10/kWh = $4,600/year savings.
+                </div>
+                
+                <h3>Motor Efficiency by Load</h3>
+                <div class="motor-type">
+                    <strong>Efficiency vs. Loading Curve:</strong>
+                    <ul>
+                        <li><strong>25% Load:</strong> Efficiency drops 3-5% below rated. Power factor poor (0.60-0.70). Avoid continuous operation.</li>
+                        <li><strong>50% Load:</strong> Efficiency ~2% below rated. Power factor acceptable (0.75-0.80). Common operating point.</li>
+                        <li><strong>75% Load:</strong> Peak efficiency zone. Power factor good (0.85-0.90). Optimal for most applications.</li>
+                        <li><strong>100% Load:</strong> Rated efficiency. Power factor excellent (0.88-0.92). Maximum output without overload.</li>
+                        <li><strong>>100% Load:</strong> Efficiency drops rapidly. Overheating risk. Short-term only with adequate service factor.</li>
+                    </ul>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Oversizing Penalty:</strong> Motor running continuously at <50% load wastes energy and reduces power factor. Right-size motors for typical operating load, not worst-case peaks.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>💰 Energy Cost Calculations</h2>
+                
+                <h3>Annual Energy Consumption Formula</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Basic Formula:</strong> kWh/year = (HP × 0.746 × Hours × Load Factor) ÷ (Efficiency × Motor Factor)
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Example Calculation:</strong><br>
+                    50HP motor, 95% efficiency, 8000 hr/yr, 75% avg load, 0.95 motor factor<br>
+                    kWh = (50 × 0.746 × 8000 × 0.75) ÷ (0.95 × 0.95) = 248,021 kWh/year
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Energy Cost:</strong> kWh × electricity rate<br>
+                    248,021 kWh × $0.12/kWh = $29,762/year
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Demand Charges:</strong> Peak kW × demand rate × 12 months<br>
+                    (50 HP × 0.746 × 0.75) ÷ 0.95 = 29.4 kW peak<br>
+                    29.4 kW × $15/kW × 12 = $5,292/year
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Total Annual Cost:</strong> Energy + Demand = $29,762 + $5,292 = $35,054/year
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Lifetime Energy Cost:</strong> For typical industrial motor, energy cost over 20-year life = 50-100× initial purchase price. Efficiency upgrades have rapid payback.
+                </div>
+                
+                <h3>Payback Period Calculator</h3>
+                <div class="motor-type">
+                    <strong>Upgrade ROI Analysis:</strong>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Calculate Savings:</strong> (1/Eff_old - 1/Eff_new) × HP × 0.746 × Hours × Rate × Load
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Example - 50HP upgrade from 88% to 95%:</strong><br>
+                        (1/0.88 - 1/0.95) × 50 × 0.746 × 8000 × $0.12 × 0.75 = $2,685/year savings
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Payback Period:</strong> Upgrade Cost ÷ Annual Savings<br>
+                        Premium motor +$800 ÷ $2,685 = 0.3 years (3.6 months payback)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🎯 Optimization Strategies</h2>
+                <span class="skill-level advanced">Advanced</span>
+                
+                <h3>1. Variable Frequency Drives (VFDs)</h3>
+                <div class="motor-type">
+                    <strong>Energy Savings Potential:</strong>
+                    <ul>
+                        <li><strong>Variable Torque Loads (Fans/Pumps):</strong> Savings = 1 - (New Speed / Full Speed)³</li>
+                        <li><strong>Example:</strong> Fan at 80% speed = 1 - 0.8³ = 49% energy savings</li>
+                        <li><strong>Constant Torque (Conveyors):</strong> Savings = 1 - (New Speed / Full Speed) = 20% at 80% speed</li>
+                        <li><strong>Best Applications:</strong> Centrifugal pumps, HVAC fans, cooling towers, compressors with varying demand</li>
+                        <li><strong>Typical Payback:</strong> 1-3 years for motors >10HP with >20% speed variation</li>
+                    </ul>
+                </div>
+                
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Fan at 90% Speed</div>
+                        <div class="spec-value">27% Savings</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Cube law applies</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Fan at 80% Speed</div>
+                        <div class="spec-value">49% Savings</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Half the power</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Fan at 70% Speed</div>
+                        <div class="spec-value">66% Savings</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Major reduction</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Fan at 50% Speed</div>
+                        <div class="spec-value">87% Savings</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Massive savings</div>
+                    </div>
+                </div>
+                
+                <h3>2. Motor Downsizing / Right-Sizing</h3>
+                <div class="motor-type">
+                    <strong>When to Downsize:</strong>
+                    <ul>
+                        <li>Motor consistently runs at <50% load (measure with ammeter or power meter)</li>
+                        <li>Power factor consistently <0.75 (indicates light loading)</li>
+                        <li>Original sizing was overly conservative (common with pumps/fans)</li>
+                        <li>Process changes reduced actual demand</li>
+                    </ul>
+                    <strong>Sizing Guideline:</strong> Target 75-85% load at normal operation. Allows headroom for peaks while maintaining high efficiency and power factor.
+                </div>
+                
+                <h3>3. Power Factor Correction</h3>
+                <div class="motor-type">
+                    <strong>Low Power Factor Causes:</strong>
+                    <ul>
+                        <li>Motors running under 50% load (most common)</li>
+                        <li>Old standard efficiency motors (higher magnetizing current)</li>
+                        <li>Transformers with light loading</li>
+                        <li>Long cable runs with capacitive effects</li>
+                    </ul>
+                    <strong>Correction Methods:</strong>
+                    <ul>
+                        <li><strong>Capacitor Banks:</strong> Adds leading vars to offset lagging motor vars. Size for 0.95 target PF. Never use with VFDs (harmonic resonance).</li>
+                        <li><strong>Active PFC:</strong> Electronic power factor correction. Handles variable loads. More expensive but versatile.</li>
+                        <li><strong>Synchronous Motors:</strong> Can operate at unity or leading PF. Used for large loads (>100HP) requiring PF correction.</li>
+                    </ul>
+                </div>
+                
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">PF 0.70</div>
+                        <div class="spec-value">43% Penalty</div>
+                        <div style="font-size:0.75em; margin-top:4px;">kVA = 1.43 × kW<br>Utility penalties</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">PF 0.80</div>
+                        <div class="spec-value">25% Penalty</div>
+                        <div style="font-size:0.75em; margin-top:4px;">kVA = 1.25 × kW<br>Borderline</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(241, 196, 15, 0.2); border-left: 3px solid #f1c40f;">
+                        <div class="spec-label">PF 0.90</div>
+                        <div class="spec-value">11% Penalty</div>
+                        <div style="font-size:0.75em; margin-top:4px;">kVA = 1.11 × kW<br>Acceptable</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">PF 0.95+</div>
+                        <div class="spec-value">5% Penalty</div>
+                        <div style="font-size:0.75em; margin-top:4px;">kVA = 1.05 × kW<br>Optimal</div>
+                    </div>
+                </div>
+                
+                <h3>4. Proper Maintenance for Efficiency</h3>
+                <div class="motor-type">
+                    <strong>Maintenance Impact on Efficiency:</strong>
+                    <ul>
+                        <li><strong>Bearing Lubrication:</strong> Under-lubricated bearings increase friction losses 5-10%. Over-lubrication increases windage losses 2-3%.</li>
+                        <li><strong>Alignment:</strong> Misalignment >0.005" increases losses 3-5% from bearing stress and vibration.</li>
+                        <li><strong>Air Gap:</strong> Eccentric rotor (>20% air gap variation) reduces efficiency 1-2% and increases vibration.</li>
+                        <li><strong>Cooling:</strong> Blocked vents increase operating temperature. Each 10°C rise reduces insulation life 50% and efficiency 0.5-1%.</li>
+                        <li><strong>Voltage Quality:</strong> 3% voltage unbalance increases losses 18-25% and reduces motor life significantly.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🔄 Repair vs. Replace Decision</h2>
+                
+                <h3>Economic Analysis Framework</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Calculate Repair Cost:</strong> Labor + parts + downtime cost + rewind/bearing replacement
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Calculate Replacement Cost:</strong> New premium efficiency motor + installation - rebates/incentives
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Annual Energy Cost Difference:</strong> New motor saves (Eff_new - Eff_old) × annual kWh
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Payback Period:</strong> (Replacement Cost - Repair Cost) ÷ Annual Savings
+                </div>
+                
+                <h3>Decision Matrix</h3>
+                <div class="motor-type">
+                    <strong>REPLACE if any of the following:</strong>
+                    <ul>
+                        <li>Repair cost >60% of new premium efficiency motor cost</li>
+                        <li>Motor is standard efficiency (pre-1992) and runs >4000 hr/year</li>
+                        <li>Motor >20 years old with history of multiple repairs</li>
+                        <li>Energy savings payback <3 years (simple payback calculation)</li>
+                        <li>Motor has been rewound 2+ times (efficiency degrades ~1% per rewind)</li>
+                        <li>Critical application where reliability is paramount</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>REPAIR if all of the following:</strong>
+                    <ul>
+                        <li>Repair cost <50% of replacement cost</li>
+                        <li>Motor is already premium efficiency (IE3 or better)</li>
+                        <li>Motor <10 years old with no previous repairs</li>
+                        <li>Usage <2000 hr/year (energy savings minimal)</li>
+                        <li>Specialized motor (high voltage, explosion-proof, custom) with long lead time for replacement</li>
+                        <li>First failure and root cause corrected (was preventable)</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Rule of Thumb:</strong> For motors >50HP running >4000 hr/yr, replacement with premium efficiency almost always pays back in <2 years vs. rewinding standard efficiency motor.
+                </div>
+                
+                <h3>Example Cost Comparison</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">50HP Rewind</div>
+                        <div class="spec-value">$2,500</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Returns to 88% eff<br>2-3 week lead time</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">50HP New IE3</div>
+                        <div class="spec-value">$3,200</div>
+                        <div style="font-size:0.75em; margin-top:4px;">95% efficiency<br>1-2 week delivery</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Annual Savings</div>
+                        <div class="spec-value">$2,685/yr</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Energy difference<br>8000 hr operation</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">Payback Period</div>
+                        <div class="spec-value">3.1 months</div>
+                        <div style="font-size:0.75em; margin-top:4px;">($3200-$2500)/$2685<br>Clear winner</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📊 Energy Monitoring & Trending</h2>
+                
+                <h3>Key Performance Indicators (KPIs)</h3>
+                <div class="motor-type">
+                    <strong>Monitor These Metrics:</strong>
+                    <ul>
+                        <li><strong>Specific Energy Consumption:</strong> kWh per unit of production (kWh/ton, kWh/gallon, etc.). Trending up indicates inefficiency.</li>
+                        <li><strong>Load Factor:</strong> Actual power ÷ rated power × 100%. Target 75-85% for optimal efficiency.</li>
+                        <li><strong>Power Factor:</strong> Real power ÷ apparent power. Target >0.90 to avoid utility penalties.</li>
+                        <li><strong>Motor Efficiency:</strong> Output power ÷ input power × 100%. Compare to nameplate rating.</li>
+                        <li><strong>Operating Hours:</strong> Track cumulative run time. Triggers scheduled maintenance at intervals.</li>
+                    </ul>
+                </div>
+                
+                <h3>Energy Measurement Equipment</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Clamp Ammeter</div>
+                        <div class="spec-value">$50-200</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Basic load check<br>Current only</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Power Meter</div>
+                        <div class="spec-value">$300-1000</div>
+                        <div style="font-size:0.75em; margin-top:4px;">kW, PF, harmonics<br>Spot measurements</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Data Logger</div>
+                        <div class="spec-value">$1000-3000</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Continuous logging<br>7-30 day profiles</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Permanent Monitor</div>
+                        <div class="spec-value">$2000-5000</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Real-time SCADA<br>Alarm capability</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Measurement Best Practice:</strong> Log power consumption for 7 days to capture daily/weekly cycles. Identifies opportunities for scheduling, VFD control, or motor downsizing.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🌟 Advanced Efficiency Technologies</h2>
+                
+                <h3>Synchronous Reluctance Motors (SynRM)</h3>
+                <div class="motor-type">
+                    <strong>IE4/IE5 Efficiency Technology:</strong>
+                    <ul>
+                        <li>Efficiency: 95-97% (IE4/IE5 class) vs. 91-95% standard premium</li>
+                        <li>No rotor copper losses (reluctance torque principle)</li>
+                        <li>Lower operating temperature = longer insulation life</li>
+                        <li>Must operate with VFD (not line-start capable)</li>
+                        <li>Cost: 15-25% premium over IE3 induction motors</li>
+                        <li>Best for: Variable speed applications >10HP, payback 2-4 years</li>
+                    </ul>
+                </div>
+                
+                <h3>Permanent Magnet Motors (PMSM)</h3>
+                <div class="motor-type">
+                    <strong>Ultra-High Efficiency:</strong>
+                    <ul>
+                        <li>Efficiency: 96-98% across wide load range</li>
+                        <li>Compact size: 30-50% smaller than equivalent induction motor</li>
+                        <li>Excellent power factor >0.95 at all loads</li>
+                        <li>High torque density for space-constrained applications</li>
+                        <li>Cost: 50-100% premium vs. standard motors</li>
+                        <li>Concerns: Rare earth magnet cost volatility, demagnetization risk at high temps</li>
+                    </ul>
+                </div>
+                
+                <h3>Soft Starters vs. VFDs</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Soft Starter</div>
+                        <div class="spec-value">$200-800</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Smooth start/stop<br>No energy savings<br>Fixed speed only</div>
+                    </div>
+                    <div class="spec-card" style="background: rgba(46, 204, 113, 0.2); border-left: 3px solid #2ecc71;">
+                        <div class="spec-label">VFD</div>
+                        <div class="spec-value">$400-2000</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Speed control<br>20-50% savings<br>Variable torque loads</div>
+                    </div>
+                </div>
+                <div class="tip">
+                    💡 <strong>Decision:</strong> Use soft starter for fixed-speed applications (low-cost starting). Use VFD for variable flow/pressure applications (energy savings justify higher cost).
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>✅ Energy Efficiency Audit Checklist</h2>
+                
+                <div class="motor-type">
+                    <strong>Motor Inventory & Assessment:</strong>
+                    <ul>
+                        <li>☐ Create database: Location, HP, voltage, efficiency class, age, hours/year</li>
+                        <li>☐ Measure actual power draw with logger (7 days minimum)</li>
+                        <li>☐ Calculate average load factor and power factor</li>
+                        <li>☐ Identify motors running <50% load (downsize candidates)</li>
+                        <li>☐ Identify variable torque loads (VFD candidates)</li>
+                        <li>☐ Document standard efficiency motors >10HP running >4000hr/yr (replace priority)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>System Optimization Opportunities:</strong>
+                    <ul>
+                        <li>☐ Check for throttled valves on pumps (install VFD instead)</li>
+                        <li>☐ Check for dampers on fans (VFD eliminates pressure drop losses)</li>
+                        <li>☐ Measure voltage unbalance (<2% target)</li>
+                        <li>☐ Verify shaft alignment (<0.002" offset)</li>
+                        <li>☐ Check for clean cooling vents and proper ventilation</li>
+                        <li>☐ Verify correct belt tension (if belt drive)</li>
+                        <li>☐ Consider direct drive replacement for belt/chain drives (3-5% efficiency gain)</li>
+                    </ul>
+                </div>
+                
+                <div class="motor-type">
+                    <strong>Financial Analysis:</strong>
+                    <ul>
+                        <li>☐ Calculate energy cost per motor (HP × 0.746 × hours × rate ÷ efficiency)</li>
+                        <li>☐ Rank motors by annual energy cost (focus on top 20%)</li>
+                        <li>☐ Calculate ROI for VFD installation (variable torque loads)</li>
+                        <li>☐ Calculate ROI for motor replacement (standard to premium efficiency)</li>
+                        <li>☐ Research utility rebates/incentives for efficiency upgrades</li>
+                        <li>☐ Develop 3-year implementation plan prioritized by payback period</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Quick Win:</strong> Most facilities find 15-30% energy reduction potential through motor optimization. Payback typically 1-3 years. Start with largest motors and longest operating hours for maximum impact.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Repair Tab -->
+        <div id="repair" class="tab-content">
+            <div class="guide-section">
+                <h2>🔨 Common Repairs & Maintenance</h2>
+                
+                <h3>Bearing Replacement</h3>
+                <span class="skill-level intermediate">Intermediate</span>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Preparation:</strong> Disconnect power and lock out motor. Mark shaft position and bearing orientation.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Removal:</strong> Remove coupling/pulley. Use bearing puller - never hammer directly on bearing. Heat outer race to 80-100°C if tight.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Inspection:</strong> Check shaft for scoring, measure diameter with micrometer. Clean bearing housing thoroughly with solvent.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Installation:</strong> Cool new bearing to -20°C or heat housing to 90°C. Press bearing squarely onto shaft using drift against inner race only.
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Testing:</strong> Rotate shaft by hand - should turn smoothly. Apply light grease if not pre-lubricated. Reassemble and test run unloaded.
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Critical:</strong> Never press on bearing outer race when installing. This damages the bearing and causes premature failure.
+                </div>
+                
+                <h3>Winding Insulation Test</h3>
+                <span class="skill-level advanced">Advanced</span>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    Disconnect all power cables and discharge any capacitors
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    Use megohmmeter at 500V DC for motors up to 1000V rated
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    Test each phase to ground and phase-to-phase
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    Minimum acceptable: 1MΩ per kV + 1MΩ (e.g., 460V motor = 1.46MΩ minimum)
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    Values below 2MΩ require investigation; below 1MΩ need immediate attention
+                </div>
+                
+                <h3>Capacitor Replacement (Single Phase)</h3>
+                <span class="skill-level beginner">Beginner</span>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    Disconnect power and discharge capacitor with 20kΩ resistor for 60 seconds
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    Take photo of wiring connections before removal
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    Match voltage rating exactly, capacitance within ±10%
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    Connect new capacitor following original wiring diagram
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    Test motor rotation direction before reconnecting load
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>🛠️ Troubleshooting Guide</h2>
+                <div class="motor-type">
+                    <strong>Motor Won't Start:</strong>
+                    <ul>
+                        <li>Check power supply voltage and fuses</li>
+                        <li>Test capacitor (single phase) with capacitance meter</li>
+                        <li>Verify overload relay hasn't tripped</li>
+                        <li>Check for seized bearings or locked rotor</li>
+                    </ul>
+                </div>
+                <div class="motor-type">
+                    <strong>Excessive Vibration:</strong>
+                    <ul>
+                        <li>Check shaft alignment (max 0.05mm offset)</li>
+                        <li>Balance rotor if vibration frequency matches motor speed</li>
+                        <li>Inspect bearings for wear or contamination</li>
+                        <li>Verify motor mounting bolts are tight</li>
+                    </ul>
+                </div>
+                <div class="motor-type">
+                    <strong>Overheating:</strong>
+                    <ul>
+                        <li>Measure current draw - should not exceed nameplate rating</li>
+                        <li>Clean ventilation slots and cooling fan</li>
+                        <li>Check ambient temperature (<40°C typically)</li>
+                        <li>Verify proper voltage and phase balance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skills Tab -->
+        <div id="skills" class="tab-content">
+            <div class="guide-section">
+                <h2>🎓 Skill Level Requirements</h2>
+                
+                <div class="motor-type">
+                    <span class="skill-level beginner">Beginner Level</span>
+                    <h3>Tasks You Can Perform:</h3>
+                    <ul>
+                        <li>Basic visual inspections and cleaning</li>
+                        <li>Voltage and current measurements with multimeter</li>
+                        <li>Belt tension adjustment and replacement</li>
+                        <li>Capacitor replacement (after proper training)</li>
+                        <li>Terminal connection tightening</li>
+                        <li>Lubrication of accessible bearings</li>
+                    </ul>
+                    <div class="tip">
+                        💡 <strong>Required Knowledge:</strong> Basic electrical safety, ability to read motor nameplate, understanding of lockout/tagout procedures
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <span class="skill-level intermediate">Intermediate Level</span>
+                    <h3>Advanced Tasks:</h3>
+                    <ul>
+                        <li>Bearing removal and replacement</li>
+                        <li>Shaft alignment using dial indicators</li>
+                        <li>Insulation resistance testing</li>
+                        <li>Motor disassembly and reassembly</li>
+                        <li>VFD parameter programming</li>
+                        <li>Vibration analysis and diagnosis</li>
+                        <li>Three-phase motor wiring and troubleshooting</li>
+                    </ul>
+                    <div class="tip">
+                        💡 <strong>Required Knowledge:</strong> AC/DC theory, use of precision measurement tools, motor construction fundamentals, blueprint reading
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <span class="skill-level advanced">Advanced Level</span>
+                    <h3>Expert Tasks:</h3>
+                    <ul>
+                        <li>Motor rewinding and coil replacement</li>
+                        <li>Dynamic balancing of rotors</li>
+                        <li>Advanced fault diagnosis with oscilloscope</li>
+                        <li>Custom motor design and specification</li>
+                        <li>High voltage motor maintenance (>1000V)</li>
+                        <li>Laser shaft alignment</li>
+                        <li>Root cause failure analysis</li>
+                    </ul>
+                    <div class="tip">
+                        💡 <strong>Required Knowledge:</strong> Electrical engineering principles, electromagnetic theory, advanced diagnostics, industry codes and standards (NEMA, IEC)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>📚 Essential Tools by Skill Level</h2>
+                <h3>Beginner Toolkit:</h3>
+                <ul>
+                    <li>Digital multimeter (true RMS)</li>
+                    <li>Insulated screwdriver and wrench set</li>
+                    <li>Flashlight and inspection mirror</li>
+                    <li>Voltage tester/detector</li>
+                    <li>Wire strippers and crimpers</li>
+                </ul>
+                
+                <h3>Intermediate Toolkit:</h3>
+                <ul>
+                    <li>Clamp-on ammeter (AC/DC)</li>
+                    <li>Megohmmeter (insulation tester)</li>
+                    <li>Dial indicators and magnetic base</li>
+                    <li>Bearing puller set</li>
+                    <li>Infrared thermometer</li>
+                    <li>Vibration meter</li>
+                </ul>
+                
+                <h3>Advanced Toolkit:</h3>
+                <ul>
+                    <li>Oscilloscope and spectrum analyzer</li>
+                    <li>Laser shaft alignment system</li>
+                    <li>Dynamic balancing equipment</li>
+                    <li>Motor circuit analyzer (MCA)</li>
+                    <li>High-voltage test equipment</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Size Guide Tab -->
+        <div id="size" class="tab-content">
+            <div class="guide-section">
+                <h2>📏 Motor Sizing & Selection Guide</h2>
+                
+                <h3>NEMA Frame Sizes (North America)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 56</div>
+                        <div class="spec-value">1/4 - 1/2 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Small appliances</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 143T</div>
+                        <div class="spec-value">1 - 3 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Pumps, fans</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 182T</div>
+                        <div class="spec-value">3 - 7.5 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Compressors</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 213T</div>
+                        <div class="spec-value">7.5 - 15 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Industrial</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 254T</div>
+                        <div class="spec-value">15 - 30 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Heavy duty</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">Frame 286T</div>
+                        <div class="spec-value">30 - 60 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Large systems</div>
+                    </div>
+                </div>
+                
+                <h3>IEC Frame Sizes (International)</h3>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 63</div>
+                        <div class="spec-value">0.18 - 0.37 kW</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 80</div>
+                        <div class="spec-value">0.55 - 1.5 kW</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 100</div>
+                        <div class="spec-value">2.2 - 4 kW</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 132</div>
+                        <div class="spec-value">5.5 - 11 kW</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 160</div>
+                        <div class="spec-value">15 - 22 kW</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">IEC 200</div>
+                        <div class="spec-value">30 - 45 kW</div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Sizing Formula:</strong> Motor HP = (Torque × RPM) / 5252<br>
+                    Always add 15-20% safety factor for variable loads
+                </div>
+                
+                <h3>Power Calculation Guide</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Calculate Load Requirements:</strong> Determine torque (lb-ft or N·m) and speed (RPM) needed
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Account for Efficiency:</strong> Motor efficiency typically 85-95% (check nameplate)
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Service Factor:</strong> Add 15% minimum for continuous duty, 25% for intermittent high loads
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Environmental Factors:</strong> Derate 1% per °C above 40°C ambient, 3% per 1000ft above sea level
+                </div>
+                
+                <div class="warning">
+                    ⚠️ <strong>Critical:</strong> Undersized motors fail prematurely from overheating. Oversized motors waste energy and have poor power factor.
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2>⚡ Voltage & Current Ratings</h2>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-label">120V Single Phase</div>
+                        <div class="spec-value">Up to 2 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">15-20A circuit</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">240V Single Phase</div>
+                        <div class="spec-value">Up to 10 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">30-50A circuit</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">208V 3-Phase</div>
+                        <div class="spec-value">Up to 100 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Commercial</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-label">480V 3-Phase</div>
+                        <div class="spec-value">Up to 500 HP</div>
+                        <div style="font-size:0.75em; margin-top:4px;">Industrial</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Types Tab -->
+        <div id="types" class="tab-content">
+            <div class="guide-section">
+                <h2>🔌 Motor Types & Applications</h2>
+                
+                <div class="motor-type">
+                    <h3>AC Induction Motors (Squirrel Cage)</h3>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">Efficiency</div>
+                            <div class="spec-value">85-96%</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Speed</div>
+                            <div class="spec-value">Fixed</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Maintenance</div>
+                            <div class="spec-value">Low</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Cost</div>
+                            <div class="spec-value">$$</div>
+                        </div>
+                    </div>
+                    <strong>Best For:</strong> Fans, pumps, conveyors, general industrial use
+                    <div class="tip">
+                        💡 Most common motor type. Rugged, reliable, no brushes to replace. Use with VFD for speed control.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <h3>Permanent Magnet Synchronous Motors (PMSM)</h3>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">Efficiency</div>
+                            <div class="spec-value">93-97%</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Speed</div>
+                            <div class="spec-value">Variable</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Maintenance</div>
+                            <div class="spec-value">Low</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Cost</div>
+                            <div class="spec-value">$$$</div>
+                        </div>
+                    </div>
+                    <strong>Best For:</strong> Electric vehicles, robotics, precision applications, energy efficiency critical
+                    <div class="tip">
+                        💡 Highest efficiency and power density. Requires electronic controller. Excellent torque at low speeds.
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <h3>Brushless DC Motors (BLDC)</h3>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">Efficiency</div>
+                            <div class="spec-value">90-95%</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Speed</div>
+                            <div class="spec-value">Variable</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Maintenance</div>
+                            <div class="spec-value">Very Low</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Cost</div>
+                            <div class="spec-value">$$$</div>
+                        </div>
+                    </div>
+                    <strong>Best For:</strong> Drones, computer fans, automotive, portable tools
+                    <div class="tip">
+                        💡 No brushes = longer life and less EMI. Requires electronic speed controller (ESC).
+                    </div>
+                </div>
+                
+                <div class="motor-type">
+                    <h3>Universal Motors (Brushed AC/DC)</h3>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-label">Efficiency</div>
+                            <div class="spec-value">75-85%</div>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-label">Speed</div>
+                            <div class="spec-value">High RPM</div>
+                        </div>
